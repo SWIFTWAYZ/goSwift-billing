@@ -18,3 +18,23 @@ linking, driver docs upload
 - other logic related to discounts, compaign, invoicing, trip summaries, trip details, 
 - Reporting provides driver trip statements. Calculates amount due to driver per vehicle per week, month etc.
 - 
+
+
+### How do I get setup?
+
+After cloning the repository, install all the dependancies.
+
+### Software
+ * [Apache-maven-3.3.9](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/)
+ * [Postgresql](https://www.postgresql.org/download/) [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
+ * [Dbeaver](http://dbeaver.jkiss.org/download/)
+
+### Database Config
+
+ * Follow this link to setup postgress [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
+ * dname = swiftwayz
+ * dbuser = swiftwayz
+ 
+ ### How to build and run
+ * mvn clean install -Dspring.profiles.active=dev
+ * mvn spring-boot:run
