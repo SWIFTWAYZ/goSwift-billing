@@ -22,8 +22,11 @@ linking, driver docs upload
 
 ### How do I get setup?
 
-After cloning the repository, install all the dependancies.
+After cloning the repository switch to developmet branch and install all the dependancies.
 
+### Switch Branch
+ * git checkout -b development
+ 
 ### Software
  * [Apache-maven-3.3.9](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/)
  * [Postgresql](https://www.postgresql.org/download/) [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
