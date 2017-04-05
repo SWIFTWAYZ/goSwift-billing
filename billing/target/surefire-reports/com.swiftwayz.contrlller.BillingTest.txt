@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.swiftwayz.contrlller.BillingTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.945 sec - in com.swiftwayz.contrlller.BillingTest
