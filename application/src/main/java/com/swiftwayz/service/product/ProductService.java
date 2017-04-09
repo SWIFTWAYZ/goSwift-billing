@@ -26,4 +26,8 @@ public class ProductService {
     public Product findByCode(String code) {
         return productRepository.findOneByCode(code).orElse(null);
     }
+
+    public Product update(Product product) {
+        return productRepository.findOne(product.getId());
+    }
 }

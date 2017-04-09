@@ -39,10 +39,29 @@ public class ProductServiceIntTest {
 
     @Test
     public void should_retrieve_goX_product(){
-        String goX = "goX";
-        Product product = productService.findByCode(goX);
+        Product product = retrieveGoxProduct();
 
         assertThat(product).isNotNull();
         assertThat(product.getId()).isNotZero();
     }
+
+    @Test
+    public void should_update_product(){
+
+        Product product = retrieveGoxProduct();
+
+        String expected = "Updated goX";
+        product.setName(expected);
+
+        Product updatedProduct = productService.update(product);
+
+        assertThat(updatedProduct.getName()).isEqualTo(expected);
+
+    }
+
+    private Product retrieveGoxProduct() {
+        String goX = "goX";
+        return productService.findByCode(goX);
+    }
+
 }
