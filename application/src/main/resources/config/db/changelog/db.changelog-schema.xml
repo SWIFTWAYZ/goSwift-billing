@@ -6,4 +6,39 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
+    <changeSet id="create-tables" author="Sydney">
+        <createTable tableName="product" >
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <!--Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp" />
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        <createTable tableName="vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="registration_number" type="int"/>
+            <column name="year_registered" type="date"/>
+            <column name="vin_number" type="int"/>
+            <column name="make" type="varchar(20)"/>
+            <column name="model" type="varchar(20)"/>
+            <column name="color" type="varchar(20)"/>
+            <column name="seat_capacity" type="int"/>
+            <column name="clock_mileage" type="int"/>
+            <column name="product_type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_product_type" references="product(id)"/>
+            </column>
+            <column name="date_approved" type="date"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
 </databaseChangeLog>
