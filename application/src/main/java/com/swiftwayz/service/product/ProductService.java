@@ -22,4 +22,8 @@ public class ProductService {
     public Product add(Product product) {
         return productRepository.save(product);
     }
+
+    public Product findByCode(String code) {
+        return productRepository.findOneByCode(code).orElse(null);
+    }
 }

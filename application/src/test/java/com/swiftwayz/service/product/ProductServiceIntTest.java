@@ -27,12 +27,22 @@ public class ProductServiceIntTest {
     @Test
     public void should_add_product(){
         Product product = new Product();
-        product.setName("goX");
+        product.setCode("goX");
+        product.setName("goX 3");
         product.setDescription("3 Seater");
 
         product = productService.add(product);
 
         assertThat(product.getId()).isNotZero();
         assertThat(product.getCreatedDate()).isNotNull();
+    }
+
+    @Test
+    public void should_retrieve_goX_product(){
+        String goX = "goX";
+        Product product = productService.findByCode(goX);
+
+        assertThat(product).isNotNull();
+        assertThat(product.getId()).isNotZero();
     }
 }

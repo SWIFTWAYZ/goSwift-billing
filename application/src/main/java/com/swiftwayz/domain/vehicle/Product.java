@@ -3,13 +3,14 @@ package com.swiftwayz.domain.vehicle;
 import com.swiftwayz.domain.util.BaseEntity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by sydney on 2017/04/09.
  */
 @Entity
 @Table(name = "product")
-public class Product extends BaseEntity{
+public class Product extends BaseEntity implements Serializable{
 
     private static final long serialVersionUID = 1L;
 

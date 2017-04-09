@@ -5,10 +5,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 
 /**
@@ -18,13 +16,17 @@ import java.time.ZonedDateTime;
 
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class BaseEntity implements Serializable{
+
+    private static final long serialVersionUID = 132234L;
 
     @Column(name = "created_date", nullable = false)
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
     @CreatedDate
     private ZonedDateTime createdDate;
 
     @Column(name = "modified_date")
+    @Type(type = "org.jadira.usertype.dateandtime.threeten.PersistentZonedDateTime")
     @LastModifiedDate
     private ZonedDateTime modifiedDate;
 
