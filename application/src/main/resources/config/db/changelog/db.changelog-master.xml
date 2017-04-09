@@ -8,4 +8,5 @@
 
     <include file="classpath:config/db/changelog/db.changelog-schema.xml"/>
     <include file="classpath:config/db/changelog/sql/init-user-insert.xml"/>
+    <include file="classpath:config/db/changelog/sql/init-data-insert.xml"/>
 </databaseChangeLog>

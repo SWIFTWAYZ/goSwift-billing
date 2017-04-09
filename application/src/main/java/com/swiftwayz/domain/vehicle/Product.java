@@ -18,6 +18,9 @@ public class Product extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-gen")
     private Long id;
 
+    @Column(name = "code")
+    private String code;
+
     @Column(name = "name")
     private String name;
 
@@ -30,6 +33,14 @@ public class Product extends BaseEntity{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public String getName() {

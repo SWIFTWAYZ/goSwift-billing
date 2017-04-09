@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="init-data" author="Sydney">
+        <sql>
+            INSERT INTO public.product
+            (id, "code","name", description, created_by, created_date, modified_by, modified_date)
+            VALUES(nextval('product_id_seq'::regclass), 'goX', 'goX 3 Seeter', '3 seater only hand luggage', 'Sydney',
+            now(), null, null);
+        </sql>
+    </changeSet>
+</databaseChangeLog>
