@@ -16,7 +16,6 @@ public class AuditingDateTimeProvider implements DateTimeProvider {
         this.dateTimeService = dateTimeService;
     }
 
-    @Override
     public Calendar getNow() {
         return GregorianCalendar.from(dateTimeService.getCurrentDateAndTime());
     }

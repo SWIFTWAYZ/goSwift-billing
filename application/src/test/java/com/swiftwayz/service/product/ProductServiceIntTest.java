@@ -2,6 +2,7 @@ package com.swiftwayz.service.product;
 
 import com.swiftwayz.GoSwiftApplication;
 import com.swiftwayz.domain.vehicle.Product;
+
 import static org.assertj.core.api.Assertions.*;
 
 import org.junit.Test;
@@ -25,9 +26,9 @@ public class ProductServiceIntTest {
     private ProductService productService;
 
     @Test
-    public void should_add_product(){
+    public void should_add_product() {
         Product product = new Product();
-        product.setCode("goX");
+        product.setCode("goX-test");
         product.setName("goX 3");
         product.setDescription("3 Seater");
 
@@ -38,7 +39,8 @@ public class ProductServiceIntTest {
     }
 
     @Test
-    public void should_retrieve_goX_product(){
+    public void should_retrieve_goX_product() {
+        should_add_product();
         Product product = retrieveGoxProduct();
 
         assertThat(product).isNotNull();
@@ -46,8 +48,8 @@ public class ProductServiceIntTest {
     }
 
     @Test
-    public void should_update_product(){
-
+    public void should_update_product() {
+        should_add_product();
         Product product = retrieveGoxProduct();
 
         String expected = "Updated goX";
@@ -59,8 +61,22 @@ public class ProductServiceIntTest {
 
     }
 
+    @Test
+    public void should_delete_product() {
+
+        should_add_product();
+
+        Product product = retrieveGoxProduct();
+
+        productService.delete(product);
+
+        Product product1 = retrieveGoxProduct();
+
+        assertThat(product1).isNull();
+    }
+
     private Product retrieveGoxProduct() {
-        String goX = "goX";
+        String goX = "goX-test";
         return productService.findByCode(goX);
     }
 

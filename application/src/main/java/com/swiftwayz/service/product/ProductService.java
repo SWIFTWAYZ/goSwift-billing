@@ -30,4 +30,8 @@ public class ProductService {
     public Product update(Product product) {
         return productRepository.findOne(product.getId());
     }
+
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
 }
