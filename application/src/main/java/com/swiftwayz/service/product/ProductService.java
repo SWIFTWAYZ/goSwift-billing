@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Optional;
 
 /**
  * Created by sydney on 2017/04/09.
@@ -23,8 +24,8 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product findByCode(String code) {
-        return productRepository.findOneByCode(code).orElse(null);
+    public Optional<Product> findByCode(String code) {
+        return productRepository.findOneByCode(code);
     }
 
     public Product update(Product product) {
