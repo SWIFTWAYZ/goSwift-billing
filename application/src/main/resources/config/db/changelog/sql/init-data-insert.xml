@@ -10,7 +10,7 @@
         <sql>
             INSERT INTO public.product
             (id, "code","name", description, created_by, created_date, modified_by, modified_date)
-            VALUES(nextval('product_id_seq'::regclass), 'goX', 'goX 3 Seeter', '3 seater only hand luggage', 'Sydney',
+            VALUES(nextval('product_id_seq'::regclass), 'goX', 'goX 3 Seater', '3 seater only hand luggage', 'Sydney',
             now(), null, null);
         </sql>
     </changeSet>
