@@ -13,5 +13,12 @@
             VALUES(nextval('product_id_seq'::regclass), 'goX', 'goX 3 Seater', '3 seater only hand luggage', 'Sydney',
             now(), null, null);
         </sql>
+        <sql>
+            INSERT INTO public.vehicle
+            (id, registration_number, year_registered, vin_number, make, model, color, seat_capacity, clock_mileage,
+                product_type_id, date_approved, created_by, created_date, modified_by, modified_date)
+            VALUES(nextval('vehicle_id_seq'::regclass), 'DS12GP', 2017, '23424/23423/232', 'Toyota', 'Corolla', 'White', 3, 12000,
+            (select id from public.product where code = 'goX'), now(), 'Sydney', now(), null, null);
+        </sql>
     </changeSet>
 </databaseChangeLog>
