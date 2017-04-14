@@ -6,6 +6,7 @@ import com.swiftwayz.domain.vehicle.Vehicle;
 import static org.assertj.core.api.Assertions.*;
 
 import com.swiftwayz.repository.ProductRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,8 @@ public class VehicleServiceIntTest {
     @Autowired
     private ProductRepository productRepository;
 
+    private Vehicle savedVehicle;
+
     @Test
     public void should_add_vehicle(){
         Vehicle vehicle = new Vehicle();
@@ -49,7 +52,18 @@ public class VehicleServiceIntTest {
 
         assertThat(addVehicle.getId()).isNotZero();
         assertThat(addVehicle.getMake()).isEqualTo("Toyota");
+        this.savedVehicle = addVehicle;
+    }
 
+    @Test
+    public void should_update_vehicle(){
+        should_add_vehicle();
+        Vehicle vehicle = this.savedVehicle;
+
+        vehicle.setModel("Avanza");
+        Vehicle updated = vehicleService.updateVehicle(vehicle);
+
+        assertThat(updated.getModel()).isEqualTo("Avanza");
     }
 
     private Product getProduct() {
