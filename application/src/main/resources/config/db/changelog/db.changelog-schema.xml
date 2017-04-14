@@ -26,9 +26,9 @@
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="registration_number" type="int"/>
-            <column name="year_registered" type="date"/>
-            <column name="vin_number" type="int"/>
+            <column name="registration_number" type="varchar(20)"/>
+            <column name="year_registered" type="int"/>
+            <column name="vin_number" type="varchar(20)"/>
             <column name="make" type="varchar(20)"/>
             <column name="model" type="varchar(20)"/>
             <column name="color" type="varchar(20)"/>
