@@ -1,8 +1,11 @@
 package com.swiftwayz.service.vehicle;
 
 import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import static org.assertj.core.api.Assertions.*;
+
+import com.swiftwayz.repository.ProductRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,9 @@ public class VehicleServiceIntTest {
     @Autowired
     private VehicleService vehicleService;
 
+    @Autowired
+    private ProductRepository productRepository;
+
     @Test
     public void should_add_vehicle(){
         Vehicle vehicle = new Vehicle();
@@ -36,11 +42,17 @@ public class VehicleServiceIntTest {
         vehicle.setSeatCapacity(4);
         vehicle.setVinNumber("21340/43/33");
         vehicle.setYearRegistered(2017);
+        vehicle.setProduct(getProduct());
 
 
         Vehicle addVehicle = vehicleService.add(vehicle);
 
         assertThat(addVehicle.getId()).isNotZero();
+        assertThat(addVehicle.getMake()).isEqualTo("Toyota");
 
+    }
+
+    private Product getProduct() {
+        return productRepository.findOneByCode("goX").get();
     }
 }
