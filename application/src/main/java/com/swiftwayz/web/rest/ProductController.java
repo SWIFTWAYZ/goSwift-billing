@@ -44,4 +44,15 @@ public class ProductController {
         }
     }
 
+    @DeleteMapping(value = "/product")
+    public ResponseEntity<?> deleteProduct(@RequestBody Product product){
+        try {
+            productService.delete(product);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception ex){
+            String message = "Error deleting Product code {"  + product.getCode() + "} " + ex.getMessage();
+            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
