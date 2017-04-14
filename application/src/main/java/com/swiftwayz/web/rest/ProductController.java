@@ -55,4 +55,15 @@ public class ProductController {
         }
     }
 
+    @PutMapping (value = "/product")
+    public ResponseEntity<?> updateProduct(@RequestBody Product product){
+        try {
+            productService.update(product);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception ex){
+            String message = "Error Updating Product code {"  + product.getCode() + "} " + ex.getMessage();
+            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+        }
+    }
+
 }
