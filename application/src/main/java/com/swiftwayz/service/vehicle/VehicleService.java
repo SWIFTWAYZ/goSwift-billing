@@ -1,6 +1,8 @@
 package com.swiftwayz.service.vehicle;
 
 import com.swiftwayz.domain.vehicle.Vehicle;
+import com.swiftwayz.repository.VehicleRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -9,8 +11,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class VehicleService {
 
-    public Vehicle add(Vehicle vehicle){
+    @Autowired
+    private VehicleRepository vehicleRepository;
 
-        return  vehicle;
+    public Vehicle add(Vehicle vehicle){
+        return  vehicleRepository.save(vehicle);
     }
 }
