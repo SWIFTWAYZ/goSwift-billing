@@ -77,7 +77,7 @@ public class ProductServiceIntTest {
 
     private Product retrieveGoxProduct() {
         String goX = "goX-test";
-        return productService.findByCode(goX).get();
+        return productService.findByCode(goX).orElse(null);
     }
 
 }
