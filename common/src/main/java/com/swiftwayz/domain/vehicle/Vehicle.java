@@ -18,7 +18,7 @@ public class Vehicle {
     private Long id;
 
     @Column(name = "registration_number")
-    private Long registrationNumber;
+    private String registrationNumber;
 
     @Column(name = "year_registered")
     private int yearRegistered;
@@ -56,11 +56,11 @@ public class Vehicle {
         this.id = id;
     }
 
-    public Long getRegistrationNumber() {
+    public String getRegistrationNumber() {
         return registrationNumber;
     }
 
-    public void setRegistrationNumber(Long registrationNumber) {
+    public void setRegistrationNumber(String  registrationNumber) {
         this.registrationNumber = registrationNumber;
     }
 
