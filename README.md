@@ -3,7 +3,7 @@ billing and business logic sub-system
 
 This is where post-trip processing happens. Billing of trip based on trip data
 received from dispatch through message broker is carried out by Billing system. Rate
-information is configured in this module. All business relating to the billing of a trip
+information is configured in this module. All business rules relating to the billing of a trip
 or fare estimates are done by this module. This module gives users ability to configure base rates, 
 rates per kilometer, rates per minute, cancellation fee, time-windows, fare estimate for car-pooling, 
 fare splitting for car-pools using a web application. Support user profiles for drivers, partners and administrators.
