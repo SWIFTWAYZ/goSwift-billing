@@ -35,9 +35,10 @@ After cloning the repository switch to developmet branch and install all the dep
 ### Database Config
 
  * Follow this link to setup postgress [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
- * dname = swiftwayz
+ * dbname = swiftwayz
  * dbuser = swiftwayz
  
  ### How to build and run
  * mvn clean install -Dspring.profiles.active=dev
- * mvn spring-boot:run
+ * cd application
+ * mvn spring-boot:run -Dspring.profiles.active=dev
