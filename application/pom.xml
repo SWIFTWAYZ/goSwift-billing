@@ -71,8 +71,10 @@
             <artifactId>go.swift.common</artifactId>
             <version>${go.swift.verion}</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

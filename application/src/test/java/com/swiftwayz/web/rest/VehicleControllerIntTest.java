@@ -4,6 +4,7 @@ import com.swiftwayz.GoSwiftApplication;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.vehicle.VehicleService;
+import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -48,7 +51,8 @@ public class VehicleControllerIntTest {
     @Test
     public void should_add_vehicle() throws Exception {
 
-        Vehicle vehicle = createVehicle();
+        Product product = createProduct();
+        Vehicle vehicle = createVehicle(product);
 
         restMvc.perform(
                 post("/api/vehicle/")
@@ -57,7 +61,25 @@ public class VehicleControllerIntTest {
         .andExpect(status().isOk());
     }
 
-    private Vehicle createVehicle() {
+    @Test
+    public void should_throw_exception_when_add_vehicle_with_incorrect_product() throws Exception {
+
+        Product product = new Product();
+        product.setCode("code");
+        Vehicle vehicle = createVehicle(product);
+
+        MvcResult mvcResult = restMvc.perform(
+                post("/api/vehicle/")
+                        .contentType(TestUtil.APPLICATION_JSON_UTF8)
+                        .content(TestUtil.convertObjectToJsonBytes(vehicle)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+
+        String error = mvcResult.getResponse().getContentAsString();
+        Assertions.assertThat(error).isEqualTo("Product {code} not found.");
+    }
+
+    private Vehicle createVehicle(Product product) {
         Vehicle vehicle = new Vehicle();
         vehicle.setMake("Toyota");
         vehicle.setModel("Corolla");
@@ -66,7 +88,7 @@ public class VehicleControllerIntTest {
         vehicle.setClockMileage(1000);
         vehicle.setDateApproved(new Date());
 
-        vehicle.setProduct(createProduct());
+        vehicle.setProduct(product);
         return vehicle;
     }
 
