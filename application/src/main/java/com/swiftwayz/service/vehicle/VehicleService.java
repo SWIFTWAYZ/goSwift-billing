@@ -26,6 +26,16 @@ public class VehicleService {
 
     public Vehicle add(Vehicle vehicle){
         Product product = vehicle.getProduct();
+        validateProduct(product);
+        return  vehicleRepository.save(vehicle);
+    }
+
+    public Vehicle updateVehicle(Vehicle vehicle) {
+        validateProduct(vehicle.getProduct());
+        return vehicleRepository.save(vehicle);
+    }
+
+    private void validateProduct(Product product) {
         Validate.notNull(product, "Product is required.");
         String productCode = product.getCode();
         boolean productPresent = productService.findByCode(productCode).isPresent();
@@ -36,11 +46,5 @@ public class VehicleService {
                     "} not found.";
             throw new RuntimeException(message);
         }
-        return  vehicleRepository.save(vehicle);
-    }
-
-
-    public Vehicle updateVehicle(Vehicle vehicle) {
-        return vehicleRepository.save(vehicle);
     }
 }
