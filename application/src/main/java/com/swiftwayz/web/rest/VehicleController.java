@@ -5,17 +5,14 @@ import com.swiftwayz.service.vehicle.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by sydney on 2017/04/16.
  */
 @RestController
 @RequestMapping("api")
-public class VehicleController {
+public class VehicleController extends BaseController{
 
     @Autowired
     private VehicleService vehicleService;
@@ -24,12 +21,26 @@ public class VehicleController {
     @PostMapping("/vehicle")
     public ResponseEntity<?> addVehicle(@RequestBody Vehicle vehicle){
         try{
-            vehicleService.add(vehicle);
-            return new ResponseEntity<>(HttpStatus.OK);
+            Vehicle add = vehicleService.add(vehicle);
+            return httpOk(add);
         } catch (Exception exception){
             String message = exception.getMessage();
-            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+            return httpBadRequest(message);
         }
     }
 
+
+    @PutMapping("/vehicle")
+    public ResponseEntity<?> updateVehicle(@RequestBody Vehicle vehicle){
+        try{
+            Vehicle updatedVehicle = vehicleService.updateVehicle(vehicle);
+            return httpOk(updatedVehicle);
+        }catch (Exception ex){
+            return httpBadRequest(ex.getMessage());
+        }
+    }
+
+    private ResponseEntity<?> httpOk(Object object) {
+        return new ResponseEntity<>(object, HttpStatus.OK);
+    }
 }

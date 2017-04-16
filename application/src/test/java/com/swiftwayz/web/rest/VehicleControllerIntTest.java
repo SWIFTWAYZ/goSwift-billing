@@ -14,16 +14,14 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.Date;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by sydney on 2017/04/16.
@@ -39,6 +37,8 @@ public class VehicleControllerIntTest {
 
     private MockMvc restMvc;
 
+    private Vehicle addedVehicle;
+
     @Before
     public void setUp(){
 
@@ -52,7 +52,7 @@ public class VehicleControllerIntTest {
     public void should_add_vehicle() throws Exception {
 
         Product product = createProduct();
-        Vehicle vehicle = createVehicle(product);
+        Vehicle vehicle = createVehicle(product, "Toyota");
 
         restMvc.perform(
                 post("/api/vehicle/")
@@ -66,7 +66,7 @@ public class VehicleControllerIntTest {
 
         Product product = new Product();
         product.setCode("code");
-        Vehicle vehicle = createVehicle(product);
+        Vehicle vehicle = createVehicle(product, "Toyota");
 
         MvcResult mvcResult = restMvc.perform(
                 post("/api/vehicle/")
@@ -79,9 +79,9 @@ public class VehicleControllerIntTest {
         Assertions.assertThat(error).isEqualTo("Product {code} not found.");
     }
 
-    private Vehicle createVehicle(Product product) {
+    private Vehicle createVehicle(Product product, String make) {
         Vehicle vehicle = new Vehicle();
-        vehicle.setMake("Toyota");
+        vehicle.setMake(make);
         vehicle.setModel("Corolla");
         vehicle.setYearRegistered(2016);
         vehicle.setColor("white");
