@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api")
-public class ProductController {
+public class ProductController extends BaseController {
 
     @Autowired
     private ProductService productService;
@@ -37,10 +37,10 @@ public class ProductController {
     public ResponseEntity<?> addProduct(@RequestBody Product product){
         try {
             productService.add(product);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return httpOk();
         }catch (Exception ex){
             String message = "Error adding Product code {"  + product.getCode() + "} " + ex.getMessage();
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+            return httpBadRequest(message);
         }
     }
 
@@ -48,10 +48,10 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@RequestBody Product product){
         try {
             productService.delete(product);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return httpOk();
         }catch (Exception ex){
             String message = "Error deleting Product code {"  + product.getCode() + "} " + ex.getMessage();
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+            return httpBadRequest(message);
         }
     }
 
@@ -59,10 +59,10 @@ public class ProductController {
     public ResponseEntity<?> updateProduct(@RequestBody Product product){
         try {
             productService.update(product);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return httpOk();
         }catch (Exception ex){
             String message = "Error Updating Product code {"  + product.getCode() + "} " + ex.getMessage();
-            return new ResponseEntity<>(message,HttpStatus.BAD_REQUEST);
+            return httpBadRequest(message);
         }
     }
 
