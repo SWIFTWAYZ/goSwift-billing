@@ -40,11 +40,6 @@ public class VehicleService {
         String productCode = product.getCode();
         boolean productPresent = productService.findByCode(productCode).isPresent();
 
-        if(!productPresent){
-            String message = "Product {" +
-                    product.getCode() +
-                    "} not found.";
-            throw new RuntimeException(message);
-        }
+        Validate.isTrue(productPresent, "Product {"+ productCode + "} not found.");
     }
 }
