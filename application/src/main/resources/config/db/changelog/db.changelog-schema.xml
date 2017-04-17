@@ -44,5 +44,69 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+
+        <createTable tableName="user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(100)"/>
+            <column name="lastname" type="varchar(100)"/>
+            <column name="email" type="varchar(100)"/>
+            <column name="cell_number" type="varchar(20)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="id_number" type="bigint"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="vehicle_owner">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+            </column>
+            <column name="is_driver" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="driver_detail">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+            </column>
+            <column name="vehicle_owner_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>
+            </column>
+            <column name="license_number" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="license_date_obtained" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="public_permit_number" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="crime_check_status" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="comments" type="varchar(300)"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
     </changeSet>
 </databaseChangeLog>
