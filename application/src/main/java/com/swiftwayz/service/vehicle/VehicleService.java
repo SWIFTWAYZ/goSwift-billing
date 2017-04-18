@@ -42,4 +42,18 @@ public class VehicleService {
 
         Validate.isTrue(productPresent, "Product {"+ productCode + "} not found.");
     }
+
+    public Vehicle findByRegistrationNumber(String registrationNumber){
+
+        Optional<Vehicle> vehicle = vehicleRepository.findOneByRegistrationNumber(registrationNumber);
+
+        if(vehicle.isPresent()){
+            return vehicle.get();
+        } else {
+            String message = "Vehicle with registration " +
+                    registrationNumber + " , not found.";
+            throw new RuntimeException(message);
+        }
+    }
+
 }

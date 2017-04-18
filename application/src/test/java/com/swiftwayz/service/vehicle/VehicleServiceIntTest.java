@@ -66,6 +66,17 @@ public class VehicleServiceIntTest {
         assertThat(updated.getModel()).isEqualTo("Avanza");
     }
 
+    @Test
+    public void should_find_vehicle_by_registration_num(){
+
+        String registrationNumber = "DS12GP";
+        Vehicle vehicle = vehicleService.findByRegistrationNumber(registrationNumber);
+
+        assertThat(vehicle).isNotNull();
+        assertThat(vehicle.getRegistrationNumber()).isEqualTo(registrationNumber);
+
+    }
+
     private Product getProduct() {
         return productRepository.findOneByCode("goX").get();
     }
