@@ -45,7 +45,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
-        <createTable tableName="user">
+        <createTable tableName="app_user">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
@@ -67,7 +67,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="bigint">
-                <constraints  nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
             </column>
             <column name="is_driver" type="char(1)">
                 <constraints nullable="false"/>
@@ -84,7 +84,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="user_id" type="bigint">
-                <constraints  nullable="false" foreignKeyName="fk_user_id" references="user(id)"/>
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
             </column>
             <column name="vehicle_owner_id" type="bigint">
                 <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>

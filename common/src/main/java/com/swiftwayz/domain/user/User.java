@@ -8,13 +8,13 @@ import javax.persistence.*;
  * Created by sydney on 2017/04/16.
  */
 @Entity
-@Table(name = "user")
+@Table(name = "app_user")
 public class User extends BaseEntity{
 
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name="seq-gen",sequenceName="user_id_seq", initialValue=205, allocationSize=12)
+    @SequenceGenerator(name="seq-gen",sequenceName="app_user_id_seq", initialValue=205, allocationSize=12)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-gen")
     private Long id;
 
