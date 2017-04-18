@@ -18,7 +18,7 @@ public class User extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-gen")
     private Long id;
 
-    @Column(name = "id_number")
+    @Column(name = "id_number", unique = true)
     private Long idNumber;
 
     @Column(name = "firstname")
@@ -27,10 +27,10 @@ public class User extends BaseEntity{
     @Column(name = "lastname")
     private String lastName;
 
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     private String email;
 
-    @Column(name = "cell_number")
+    @Column(name = "cell_number", unique = true)
     private String cellNumber;
 
     @Column(name = "status")
