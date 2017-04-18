@@ -25,16 +25,16 @@ public class VehicleOwner extends BaseEntity {
     private User user;
 
     @Column(name = "is_driver")
-    private boolean isDriver;
+    private char isDriver;
 
     @OneToMany(mappedBy = "vehicleOwner",cascade = CascadeType.ALL)
     private Set<DriverDetail> driverDetails;
 
-    public boolean isDriver() {
+    public char isDriver() {
         return isDriver;
     }
 
-    public void setDriver(boolean driver) {
+    public void setDriver(char driver) {
         isDriver = driver;
     }
 
@@ -44,5 +44,29 @@ public class VehicleOwner extends BaseEntity {
 
     public void setDriverDetails(Set<DriverDetail> driverDetails) {
         this.driverDetails = driverDetails;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public char getIsDriver() {
+        return isDriver;
+    }
+
+    public void setIsDriver(char isDriver) {
+        this.isDriver = isDriver;
     }
 }

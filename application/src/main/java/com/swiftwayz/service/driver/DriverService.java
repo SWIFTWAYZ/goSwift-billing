@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 /**
  * Created by sydney on 2017/04/17.
  */
@@ -26,5 +28,9 @@ public class DriverService {
         Validate.notNull(vehicle, "Vehicle is required.");
 
         return driverRepository.save(driverDetail);
+    }
+
+    public Optional<DriverDetail> findByIdNumber(Long idNumber) {
+        return driverRepository.findByIdNumber(idNumber);
     }
 }

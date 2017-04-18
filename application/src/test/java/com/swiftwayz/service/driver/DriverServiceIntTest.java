@@ -3,6 +3,7 @@ package com.swiftwayz.service.driver;
 import com.swiftwayz.GoSwiftApplication;
 import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.domain.user.User;
+import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.util.Status;
 import static org.assertj.core.api.Assertions.*;
 
@@ -17,7 +18,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.net.IDN;
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * Created by sydney on 2017/04/17.
@@ -29,6 +32,7 @@ import java.util.Date;
 @Transactional
 public class DriverServiceIntTest {
 
+    public static final Long ID_NUMBER = 1234567899999L;
     @Autowired
     private DriverService driverService;
 
@@ -43,17 +47,19 @@ public class DriverServiceIntTest {
         user.setFirstName(firstName);
         user.setLastName("Chauke");
         user.setEmail("sm@gamil.com");
-        user.setIdNumber(1234567899999L);
+        user.setIdNumber(ID_NUMBER);
         user.setStatus(Status.ACTIVE.getName());
         user.setCellNumber("+27721234567");
 
         DriverDetail driverDetail = new DriverDetail();
         driverDetail.setUser(user);
         driverDetail.setCrimeCheck("Yes");
-        driverDetail.setDateLincenseObtained(new Date());
+        driverDetail.setDateLicenseObtained(new Date());
         driverDetail.setLicenseNumber(123456L);
         driverDetail.setPermitNumber("120FJ5");
 
+        VehicleOwner owner = getVehicleOwner(user);
+        driverDetail.setVehicleOwner(owner);
         Vehicle vehicle = getVehicle();
         driverDetail.setVehicle(vehicle);
 
@@ -65,7 +71,27 @@ public class DriverServiceIntTest {
         assertThat(savedUser.getId()).isNotZero();
         assertThat(savedUser.getFirstName()).isEqualTo(firstName);
 
+    }
 
+    private VehicleOwner getVehicleOwner(User user) {
+        VehicleOwner owner = new VehicleOwner();
+        owner.setUser(user);
+        owner.setDriver('N');
+        return owner;
+    }
+
+    @Test
+    public void should_get_driver_by_idNumber(){
+
+        should_add_driver();
+
+        Optional<DriverDetail> driver =  driverService.findByIdNumber(ID_NUMBER);
+
+        assertThat(driver.isPresent()).isTrue();
+        DriverDetail driverDetail = driver.get();
+        User user = driverDetail.getUser();
+        assertThat(user).isNotNull();
+        assertThat(user.getIdNumber()).isEqualTo(ID_NUMBER);
 
     }
 
