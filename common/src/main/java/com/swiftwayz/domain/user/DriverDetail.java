@@ -19,13 +19,13 @@ public class DriverDetail extends BaseEntity{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-gen")
     private Long id;
 
-    @Column(name = "licence_number")
+    @Column(name = "license_number")
     private Long licenseNumber;
 
-    @Column(name = "date_license_obtained")
-    private Date dateLincenseObtained;
+    @Column(name = "license_date_obtained")
+    private Date dateLicenseObtained;
 
-    @Column(name = "permit_number")
+    @Column(name = "public_permit_number")
     private String permitNumber;
 
     @OneToOne(cascade = CascadeType.ALL)
@@ -36,11 +36,11 @@ public class DriverDetail extends BaseEntity{
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
-    @JoinColumn(name = "vehicle_owner_id")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "vehicle_owner_id", referencedColumnName = "ID")
     private VehicleOwner vehicleOwner;
 
-    @Column(name = "crime_check")
+    @Column(name = "crime_check_status")
     private String crimeCheck;
 
     @Column
@@ -62,12 +62,12 @@ public class DriverDetail extends BaseEntity{
         this.licenseNumber = licenseNumber;
     }
 
-    public Date getDateLincenseObtained() {
-        return dateLincenseObtained;
+    public Date getDateLicenseObtained() {
+        return dateLicenseObtained;
     }
 
-    public void setDateLincenseObtained(Date dateLincenseObtained) {
-        this.dateLincenseObtained = dateLincenseObtained;
+    public void setDateLicenseObtained(Date dateLicenseObtained) {
+        this.dateLicenseObtained = dateLicenseObtained;
     }
 
     public String getPermitNumber() {
