@@ -30,4 +30,8 @@ liquibase:
     drop-first: false
     contexts: dev
     change-log: classpath:config/db/changelog/db.changelog-master.xml
-    
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type: TRACE
