@@ -89,6 +89,9 @@
             <column name="vehicle_owner_id" type="bigint">
                 <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>
             </column>
+            <column name="vehicle_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
+            </column>
             <column name="license_number" type="varchar(50)">
                 <constraints nullable="false" />
             </column>
