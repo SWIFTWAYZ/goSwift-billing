@@ -39,8 +39,4 @@ public class VehicleController extends BaseController{
             return httpBadRequest(ex.getMessage());
         }
     }
-
-    private ResponseEntity<?> httpOk(Object object) {
-        return new ResponseEntity<>(object, HttpStatus.OK);
-    }
 }

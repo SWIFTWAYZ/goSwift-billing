@@ -16,4 +16,9 @@ public abstract  class BaseController {
         return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
     }
 
+
+    protected ResponseEntity<?> httpOk(Object object) {
+        return new ResponseEntity<>(object, HttpStatus.OK);
+    }
+
 }
