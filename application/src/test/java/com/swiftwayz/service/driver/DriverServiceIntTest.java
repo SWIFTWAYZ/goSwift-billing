@@ -73,13 +73,6 @@ public class DriverServiceIntTest {
 
     }
 
-    private VehicleOwner getVehicleOwner(User user) {
-        VehicleOwner owner = new VehicleOwner();
-        owner.setUser(user);
-        owner.setDriver('N');
-        return owner;
-    }
-
     @Test
     public void should_get_driver_by_idNumber(){
 
@@ -119,5 +112,12 @@ public class DriverServiceIntTest {
     private Vehicle getExistingVehicle() {
         String registrationNumber = "DS12GP";
         return vehicleService.findByRegistrationNumber(registrationNumber);
+    }
+
+    private VehicleOwner getVehicleOwner(User user) {
+        VehicleOwner owner = new VehicleOwner();
+        owner.setUser(user);
+        owner.setDriver('N');
+        return owner;
     }
 }
