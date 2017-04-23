@@ -1,5 +1,6 @@
 package com.swiftwayz.web.rest;
 
+import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.service.driver.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +24,8 @@ public class DriverController extends BaseController{
     @PostMapping("/driver")
     public ResponseEntity<?> addDriver(@RequestBody DriverDetail driverDetail){
         try {
-            DriverDetail savedDriverDetail = driverService.addDriver(driverDetail);
-            return httpOk(savedDriverDetail);
+            Driver driver = driverService.addDriver(driverDetail);
+            return httpOk(driver);
         } catch (Exception ex){
             return httpBadRequest(ex);
         }
