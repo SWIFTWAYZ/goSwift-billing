@@ -37,3 +37,7 @@ nbdist/
 *.ear
 
 /target/
+
+application/target/
+billing/target/
+common/target/

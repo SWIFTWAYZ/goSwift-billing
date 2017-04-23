@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog/1.9"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog/1.9
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
+
+    <changeSet id="create-tables" author="Sydney">
+        <createTable tableName="product">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="code" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50)"/>
+            <column name="description" type="varchar(50)"/>
+            <!--Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        <createTable tableName="vehicle">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="registration_number" type="varchar(20)"/>
+            <column name="year_registered" type="int"/>
+            <column name="vin_number" type="varchar(20)"/>
+            <column name="make" type="varchar(20)"/>
+            <column name="model" type="varchar(20)"/>
+            <column name="color" type="varchar(20)"/>
+            <column name="seat_capacity" type="int"/>
+            <column name="clock_mileage" type="int"/>
+            <column name="product_type_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_product_type" references="product(id)"/>
+            </column>
+            <column name="date_approved" type="date"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="app_user">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="firstname" type="varchar(100)"/>
+            <column name="lastname" type="varchar(100)"/>
+            <column name="email" type="varchar(100)"/>
+            <column name="cell_number" type="varchar(20)"/>
+            <column name="status" type="varchar(20)"/>
+            <column name="id_number" type="bigint"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="vehicle_owner">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <column name="is_driver" type="char(1)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+        <createTable tableName="driver_detail">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <column name="vehicle_owner_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>
+            </column>
+            <column name="vehicle_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
+            </column>
+            <column name="license_number" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="license_date_obtained" type="timestamp">
+                <constraints nullable="false" />
+            </column>
+            <column name="public_permit_number" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="crime_check_status" type="varchar(50)">
+                <constraints nullable="false" />
+            </column>
+            <column name="comments" type="varchar(300)"/>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>
