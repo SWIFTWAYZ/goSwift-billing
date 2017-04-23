@@ -36,6 +36,7 @@
         <jackson-datatype-jsr310.version>2.8.8</jackson-datatype-jsr310.version>
         <jackson-core.version>2.8.8</jackson-core.version>
         <rest-assured.version>2.9.0</rest-assured.version>
+        <modelmapper.version>0.7.8</modelmapper.version>
     </properties>
 
     <modules>
@@ -165,6 +166,11 @@
                 <version>${lombok.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>${modelmapper.version}</version>
+            </dependency>
 
             <!--TEST DEPENDENCIES-->
             <dependency>
