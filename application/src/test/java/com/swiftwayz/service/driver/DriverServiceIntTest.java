@@ -1,6 +1,7 @@
 package com.swiftwayz.service.driver;
 
 import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.domain.user.User;
 import com.swiftwayz.domain.user.VehicleOwner;
@@ -63,13 +64,13 @@ public class DriverServiceIntTest {
         Vehicle vehicle = getVehicle();
         driverDetail.setVehicle(vehicle);
 
-        DriverDetail savedDriver = driverService.addDriver(driverDetail);
+        Driver savedDriver = driverService.addDriver(driverDetail);
 
         assertThat(savedDriver.getId()).isNotNull();
-        User savedUser = savedDriver.getUser();
-        assertThat(savedUser).isNotNull();
-        assertThat(savedUser.getId()).isNotZero();
-        assertThat(savedUser.getFirstName()).isEqualTo(firstName);
+        assertThat(savedDriver.getFirstName()).isEqualTo(firstName);
+        DriverDetail savedDriverDetail = savedDriver.getDriverDetail();
+        assertThat(savedDriverDetail).isNotNull();
+        assertThat(savedDriverDetail.getId()).isNotZero();
 
     }
 
@@ -78,14 +79,11 @@ public class DriverServiceIntTest {
 
         should_add_driver();
 
-        Optional<DriverDetail> driver =  driverService.findByIdNumber(ID_NUMBER);
+        Driver driver =  driverService.findByIdNumber(ID_NUMBER);
 
-        assertThat(driver.isPresent()).isTrue();
-        DriverDetail driverDetail = driver.get();
-        User user = driverDetail.getUser();
-        assertThat(user).isNotNull();
-        assertThat(user.getIdNumber()).isEqualTo(ID_NUMBER);
-
+        assertThat(driver).isNotNull();
+        assertThat(driver.getIdNumber()).isEqualTo(ID_NUMBER);
+        assertThat(driver.getDriverDetail()).isNotNull();
     }
 
     private Vehicle getVehicle() {
