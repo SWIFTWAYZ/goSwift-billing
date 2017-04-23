@@ -26,7 +26,7 @@ public class DriverController extends BaseController{
             DriverDetail savedDriverDetail = driverService.addDriver(driverDetail);
             return httpOk(savedDriverDetail);
         } catch (Exception ex){
-            return httpBadRequest(ex.getMessage());
+            return httpBadRequest(ex);
         }
 
     }

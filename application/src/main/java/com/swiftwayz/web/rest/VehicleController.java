@@ -24,8 +24,7 @@ public class VehicleController extends BaseController{
             Vehicle add = vehicleService.add(vehicle);
             return httpOk(add);
         } catch (Exception exception){
-            String message = exception.getMessage();
-            return httpBadRequest(message);
+            return httpBadRequest(exception);
         }
     }
 
