@@ -22,10 +22,10 @@ public class DriverController extends BaseController{
 
 
     @PostMapping("/driver")
-    public ResponseEntity<?> addDriver(@RequestBody DriverDetail driverDetail){
+    public ResponseEntity<?> addDriver(@RequestBody Driver driver){
         try {
-            Driver driver = driverService.addDriver(driverDetail);
-            return httpOk(driver);
+            Driver driverSaved = driverService.addDriver(driver);
+            return httpOk(driverSaved);
         } catch (Exception ex){
             return httpBadRequest(ex);
         }

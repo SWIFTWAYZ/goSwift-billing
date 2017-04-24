@@ -6,8 +6,6 @@ import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.domain.user.User;
 import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.util.Status;
-import static org.assertj.core.api.Assertions.*;
-
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.vehicle.VehicleService;
@@ -19,9 +17,9 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.net.IDN;
 import java.util.Date;
-import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * Created by sydney on 2017/04/17.
@@ -34,6 +32,7 @@ import java.util.Optional;
 public class DriverServiceIntTest {
 
     public static final Long ID_NUMBER = 1234567899999L;
+    public static final String SYDNEY = "Sydney";
     @Autowired
     private DriverService driverService;
 
@@ -42,32 +41,21 @@ public class DriverServiceIntTest {
 
     @Test
     public void should_add_driver(){
-        User user = new User();
-        String firstName = "Sydney";
+        Driver driver = createDriver();
 
-        user.setFirstName(firstName);
-        user.setLastName("Chauke");
-        user.setEmail("sm@gamil.com");
-        user.setIdNumber(ID_NUMBER);
-        user.setStatus(Status.ACTIVE.getName());
-        user.setCellNumber("+27721234567");
+        DriverDetail driverDetail = getDriverDetail();
+        driver.setDriverDetail(driverDetail);
 
-        DriverDetail driverDetail = new DriverDetail();
-        driverDetail.setUser(user);
-        driverDetail.setCrimeCheck("Yes");
-        driverDetail.setDateLicenseObtained(new Date());
-        driverDetail.setLicenseNumber(123456L);
-        driverDetail.setPermitNumber("120FJ5");
-
-        VehicleOwner owner = getVehicleOwner(user);
+        VehicleOwner owner = getVehicleOwner(driver);
         driverDetail.setVehicleOwner(owner);
+
         Vehicle vehicle = getVehicle();
         driverDetail.setVehicle(vehicle);
 
-        Driver savedDriver = driverService.addDriver(driverDetail);
+        Driver savedDriver = driverService.addDriver(driver);
 
         assertThat(savedDriver.getId()).isNotNull();
-        assertThat(savedDriver.getFirstName()).isEqualTo(firstName);
+        assertThat(savedDriver.getFirstName()).isEqualTo(SYDNEY);
         DriverDetail savedDriverDetail = savedDriver.getDriverDetail();
         assertThat(savedDriverDetail).isNotNull();
         assertThat(savedDriverDetail.getId()).isNotZero();
@@ -86,11 +74,31 @@ public class DriverServiceIntTest {
         assertThat(driver.getDriverDetail()).isNotNull();
     }
 
+
+    private DriverDetail getDriverDetail() {
+        DriverDetail driverDetail = new DriverDetail();
+        driverDetail.setCrimeCheck("Yes");
+        driverDetail.setDateLicenseObtained(new Date());
+        driverDetail.setLicenseNumber(123456L);
+        driverDetail.setPermitNumber("120FJ5");
+        return driverDetail;
+    }
+
+    private Driver createDriver() {
+        Driver driver = new Driver();
+        driver.setFirstName(SYDNEY);
+        driver.setLastName("Chauke");
+        driver.setEmail("sm@gamil.com");
+        driver.setIdNumber(ID_NUMBER);
+        driver.setStatus(Status.ACTIVE.getName());
+        driver.setCellNumber("+27721234567");
+        return driver;
+    }
+
     private Vehicle getVehicle() {
         Vehicle vehicle = new Vehicle();
-
         vehicle.setMake("BMW");
-        vehicle.setModel("330");
+        vehicle.setModel("320");
         vehicle.setColor("Black");
         vehicle.setClockMileage(12000);
         vehicle.setYearRegistered(2015);
@@ -105,11 +113,6 @@ public class DriverServiceIntTest {
         Product product = new Product();
         product.setCode("goX");
         return product;
-    }
-
-    private Vehicle getExistingVehicle() {
-        String registrationNumber = "DS12GP";
-        return vehicleService.findByRegistrationNumber(registrationNumber);
     }
 
     private VehicleOwner getVehicleOwner(User user) {
