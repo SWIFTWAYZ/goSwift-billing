@@ -17,4 +17,10 @@ public class DriverAdaptor {
         return driver;
     }
 
+    public static DriverDetail adapt(Driver driver) {
+        User user = ModelMapper.getMapper().map(driver, User.class);
+        DriverDetail driverDetail = driver.getDriverDetail();
+        driverDetail.setUser(user);
+        return driverDetail;
+    }
 }
