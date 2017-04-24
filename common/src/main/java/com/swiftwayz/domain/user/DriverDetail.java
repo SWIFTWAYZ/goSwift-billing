@@ -1,5 +1,6 @@
 package com.swiftwayz.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swiftwayz.domain.util.BaseEntity;
 import com.swiftwayz.domain.vehicle.Vehicle;
 
@@ -34,6 +35,7 @@ public class DriverDetail extends BaseEntity{
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
