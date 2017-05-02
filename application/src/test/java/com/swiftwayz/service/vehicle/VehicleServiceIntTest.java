@@ -46,6 +46,7 @@ public class VehicleServiceIntTest {
         vehicle.setVinNumber("21340/43/33");
         vehicle.setYearRegistered(2017);
         vehicle.setProduct(getProduct());
+        vehicle.setRegistrationNumber("DR44LLGP");
 
 
         Vehicle addVehicle = vehicleService.add(vehicle);
@@ -77,7 +78,44 @@ public class VehicleServiceIntTest {
 
     }
 
-    private Product getProduct() {
+    @Test
+    public void should_delete_vehicle(){
+        should_add_vehicle();
+        String registrationNumber = this.savedVehicle.getRegistrationNumber();
+
+        vehicleService.remove(this.savedVehicle);
+
+        try {
+            vehicleService.findByRegistrationNumber(registrationNumber);
+            fail("Vehicle should be deleted.");
+        } catch (RuntimeException ex){
+            assertThat(ex).hasMessage("Vehicle with registration %s, not found.", registrationNumber);
+        }
+
+    }
+
+    @Test
+    public void should_delete_vehicle_by_id(){
+        should_add_vehicle();
+        String registrationNumber = this.savedVehicle.getRegistrationNumber();
+        Long id = this.savedVehicle.getId();
+
+        vehicleService.remove(id);
+
+        try {
+            vehicleService.findByRegistrationNumber(registrationNumber);
+            fail("Vehicle should be deleted.");
+        } catch (RuntimeException ex){
+            assertThat(ex).hasMessage("Vehicle with registration %s, not found.", registrationNumber);
+        }
+
+
+    }
+
+
+
+
+        private Product getProduct() {
         return productRepository.findOneByCode("goX").get();
     }
 }

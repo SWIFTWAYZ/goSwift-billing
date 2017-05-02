@@ -51,9 +51,17 @@ public class VehicleService {
             return vehicle.get();
         } else {
             String message = "Vehicle with registration " +
-                    registrationNumber + " , not found.";
+                    registrationNumber + ", not found.";
             throw new RuntimeException(message);
         }
     }
 
+    public void remove(Vehicle vehicle) {
+        vehicleRepository.delete(vehicle);
+    }
+
+
+    public void remove(Long id) {
+        vehicleRepository.delete(id);
+    }
 }
