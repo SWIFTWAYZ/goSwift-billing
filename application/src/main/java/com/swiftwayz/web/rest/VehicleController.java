@@ -38,4 +38,14 @@ public class VehicleController extends BaseController{
             return httpBadRequest(ex.getMessage());
         }
     }
+
+    @DeleteMapping("/vehicle/{id}")
+    public ResponseEntity<?> deleteVehicle(@PathVariable Long id){
+        try {
+            vehicleService.remove(id);
+            return httpOk();
+        } catch (Exception ex){
+            return httpBadRequest("Error deleting vehicle.");
+        }
+    }
 }
