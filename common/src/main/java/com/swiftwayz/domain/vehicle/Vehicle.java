@@ -1,5 +1,7 @@
 package com.swiftwayz.domain.vehicle;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -44,7 +46,7 @@ public class Vehicle {
     @Column(name = "date_approved")
     private Date dateApproved;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "product_type_id")
     private Product product;
 
