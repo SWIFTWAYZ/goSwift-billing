@@ -5,10 +5,7 @@ import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.service.driver.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by sydney on 2017/04/19.
@@ -29,6 +26,15 @@ public class DriverController extends BaseController{
         } catch (Exception ex){
             return httpBadRequest(ex);
         }
+    }
 
+    @PutMapping("/driver")
+    public ResponseEntity updateDriver(@RequestBody Driver driver){
+        try{
+            Driver updatedDriver = driverService.updateDriver(driver);
+            return httpOk(updatedDriver);
+        }catch (Exception ex){
+            return httpBadRequest(ex);
+        }
     }
 }
