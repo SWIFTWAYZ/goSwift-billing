@@ -25,22 +25,23 @@ public class VehicleService {
     private ProductService productService;
 
     public Vehicle add(Vehicle vehicle){
-        Product product = vehicle.getProduct();
-        validateProduct(product);
+        validateProduct(vehicle);
         return  vehicleRepository.save(vehicle);
     }
 
     public Vehicle updateVehicle(Vehicle vehicle) {
-        validateProduct(vehicle.getProduct());
+        validateProduct(vehicle);
         return vehicleRepository.save(vehicle);
     }
 
-    private void validateProduct(Product product) {
+    private void validateProduct(Vehicle vehicle) {
+        Product product = vehicle.getProduct();
         Validate.notNull(product, "Product is required.");
         String productCode = product.getCode();
-        boolean productPresent = productService.findByCode(productCode).isPresent();
+        Product existingProduct = productService.findByCode(productCode).orElse(null);
 
-        Validate.isTrue(productPresent, "Product {"+ productCode + "} not found.");
+        Validate.notNull(existingProduct, String.format("Product {%s} not found.", product));
+        vehicle.setProduct(existingProduct);
     }
 
     public Vehicle findByRegistrationNumber(String registrationNumber){

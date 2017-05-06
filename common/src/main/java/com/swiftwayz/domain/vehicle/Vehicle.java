@@ -3,6 +3,7 @@ package com.swiftwayz.domain.vehicle;
 import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "vehicle")
-public class Vehicle {
+public class Vehicle implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
