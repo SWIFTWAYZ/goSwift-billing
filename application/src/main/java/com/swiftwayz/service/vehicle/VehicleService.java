@@ -34,7 +34,7 @@ public class VehicleService {
         return vehicleRepository.save(vehicle);
     }
 
-    private void validateProduct(Vehicle vehicle) {
+    public void validateProduct(Vehicle vehicle) {
         Product product = vehicle.getProduct();
         Validate.notNull(product, "Product is required.");
         String productCode = product.getCode();

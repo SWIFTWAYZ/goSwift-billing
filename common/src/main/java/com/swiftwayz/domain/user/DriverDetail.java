@@ -29,7 +29,7 @@ public class DriverDetail extends BaseEntity{
     @Column(name = "public_permit_number")
     private String permitNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "vehicle_id")
     private Vehicle vehicle;
 

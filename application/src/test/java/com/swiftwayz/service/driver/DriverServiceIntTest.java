@@ -9,6 +9,7 @@ import com.swiftwayz.domain.util.Status;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.vehicle.VehicleService;
+import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,8 @@ public class DriverServiceIntTest {
     @Autowired
     private VehicleService vehicleService;
 
+    private Driver savedDriver;
+
     @Test
     public void should_add_driver(){
         Driver driver = createDriver();
@@ -52,13 +55,21 @@ public class DriverServiceIntTest {
         Vehicle vehicle = getVehicle();
         driverDetail.setVehicle(vehicle);
 
-        Driver savedDriver = driverService.addDriver(driver);
+        savedDriver = driverService.addDriver(driver);
 
         assertThat(savedDriver.getId()).isNotNull();
         assertThat(savedDriver.getFirstName()).isEqualTo(SYDNEY);
         DriverDetail savedDriverDetail = savedDriver.getDriverDetail();
         assertThat(savedDriverDetail).isNotNull();
         assertThat(savedDriverDetail.getId()).isNotZero();
+
+        Vehicle savedVehicle = savedDriver.getDriverDetail().getVehicle();
+        assertThat(savedVehicle).isNotNull();
+        assertThat(savedVehicle.getId()).isNotZero();
+
+        Product product = savedVehicle.getProduct();
+        assertThat(product).isNotNull();
+        assertThat(product.getId()).isNotZero();
 
     }
 
@@ -72,8 +83,29 @@ public class DriverServiceIntTest {
         assertThat(driver).isNotNull();
         assertThat(driver.getIdNumber()).isEqualTo(ID_NUMBER);
         assertThat(driver.getDriverDetail()).isNotNull();
+        Vehicle vehicle = driver.getDriverDetail().getVehicle();
+        assertThat(vehicle).isNotNull();
+        assertThat(vehicle.getId()).isNotZero();
+        assertThat(vehicle.getProduct()).isNotNull();
+        assertThat(vehicle.getProduct().getId()).isNotZero();
+
     }
 
+    @Test
+    public void should_update_driver(){
+        should_add_driver();
+        String oldFirstName = savedDriver.getFirstName();
+        Driver driver = SerializationUtils.clone( savedDriver);
+
+        String driverName = "DriverName";
+        driver.setFirstName(driverName);
+        Driver updateDriver = driverService.updateDriver(driver);
+
+        assertThat(updateDriver).isNotNull();
+        assertThat(updateDriver.getFirstName()).isNotEqualTo(oldFirstName);
+        assertThat(updateDriver.getFirstName()).isEqualTo(driverName);
+
+    }
 
     private DriverDetail getDriverDetail() {
         DriverDetail driverDetail = new DriverDetail();
