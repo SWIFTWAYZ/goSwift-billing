@@ -40,7 +40,7 @@ public class VehicleService {
         String productCode = product.getCode();
         Product existingProduct = productService.findByCode(productCode).orElse(null);
 
-        Validate.notNull(existingProduct, String.format("Product {%s} not found.", product));
+        Validate.notNull(existingProduct, String.format("Product {%s} not found.", productCode));
         vehicle.setProduct(existingProduct);
     }
 
