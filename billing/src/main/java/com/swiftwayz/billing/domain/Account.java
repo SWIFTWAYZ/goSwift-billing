@@ -1,4 +1,4 @@
-package com.swiftwayz.domain;
+package com.swiftwayz.billing.domain;
 
 import com.swiftwayz.domain.util.BaseEntity;
 import com.swiftwayz.domain.util.Status;

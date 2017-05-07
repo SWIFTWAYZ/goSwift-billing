@@ -1,4 +1,4 @@
-package com.swiftwayz.contrlller;
+package com.swiftwayz.billing.web.rest;
 
 import org.springframework.boot.SpringApplication;
 
