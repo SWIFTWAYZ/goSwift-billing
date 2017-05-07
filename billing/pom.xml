@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>Project Module - Billing</name>
-    <description>This is the main module of the project. It contains all business logic for billing.
+    <description>This is the main module of the project. It contains all business logic for Accounts and billing.
     </description>
 
     <parent>
