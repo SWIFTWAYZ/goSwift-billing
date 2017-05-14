@@ -9,7 +9,6 @@ import com.swiftwayz.domain.util.Status;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.driver.DriverService;
-import com.swiftwayz.service.product.ProductService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,9 +41,6 @@ public class DriverControllerIntTest {
 
     @Autowired
     private DriverService driverService;
-
-    @Mock
-    private ProductService productServiceMock;
 
     private MockMvc restMvc;
 

@@ -2,12 +2,10 @@ package com.swiftwayz.service.driver;
 
 import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.user.DriverDetail;
-import com.swiftwayz.domain.user.User;
 import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.repository.DriverRepository;
 import com.swiftwayz.service.driver.adabt.DriverAdaptor;
-import com.swiftwayz.service.vehicle.VehicleService;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,9 +22,9 @@ public class DriverService {
 
     @Autowired
     private DriverRepository driverRepository;
-
-    @Autowired
-    private VehicleService vehicleService;
+//ToDO remove the dependency of vehicle
+//    @Autowired
+//    private VehicleService vehicleService;
 
     public Driver addDriver(Driver driver) {
         DriverDetail driverDetail = DriverAdaptor.adapt(driver);
@@ -66,7 +64,7 @@ public class DriverService {
     }
 
     private void validateVehicle(Vehicle vehicle) {
-        Validate.notNull(vehicle, "Vehicle is required.");
-        vehicleService.validateProduct(vehicle);
+//        Validate.notNull(vehicle, "Vehicle is required.");
+//        vehicleService.validateProduct(vehicle);
     }
 }
