@@ -1,4 +1,4 @@
-package com.swiftwayz.service.audit;
+package com.swiftwayz.util.audit;
 
 import java.time.ZonedDateTime;
 

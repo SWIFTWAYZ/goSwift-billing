@@ -1,7 +1,5 @@
-package com.swiftwayz.repository;
+package com.swiftwayz.util.audit;
 
-import com.swiftwayz.service.audit.AuditingDateTimeProvider;
-import com.swiftwayz.service.audit.DateTimeService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.auditing.DateTimeProvider;
