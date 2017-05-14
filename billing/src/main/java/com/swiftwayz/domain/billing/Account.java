@@ -16,7 +16,7 @@ public class Account extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @SequenceGenerator(name="seq-gen",sequenceName="account_id_seq", initialValue=205, allocationSize=12)
+    @SequenceGenerator(name="seq-gen",sequenceName="account_account_id_seq", initialValue=205, allocationSize=12)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq-gen")
     @Column(name = "account_id")
     private Long accountId;
@@ -43,7 +43,6 @@ public class Account extends BaseEntity {
     private Date closeDate;
 
     @Column(name = "user_id")
-    @OneToMany(cascade = CascadeType.PERSIST)
     private Long userId;
 
     public Long getUserId() {
