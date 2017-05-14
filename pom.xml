@@ -43,6 +43,7 @@
         <module>application</module>
         <module>billing</module>
         <module>common</module>
+        <module>product</module>
     </modules>
 
     <dependencyManagement>
