@@ -1,8 +1,8 @@
 package com.swiftwayz.web.rest;
 
 import com.swiftwayz.domain.user.Driver;
-import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.service.driver.DriverService;
+import com.swiftwayz.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api")
-public class DriverController extends BaseController{
+public class DriverController extends BaseController {
 
     @Autowired
     private DriverService driverService;

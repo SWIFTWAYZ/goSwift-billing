@@ -1,4 +1,4 @@
-package com.swiftwayz.web.rest;
+package com.swiftwayz.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
