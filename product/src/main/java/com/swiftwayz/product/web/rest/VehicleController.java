@@ -1,9 +1,9 @@
-package com.swiftwayz.web.rest;
+package com.swiftwayz.product.web.rest;
 
 import com.swiftwayz.domain.vehicle.Vehicle;
-import com.swiftwayz.service.vehicle.VehicleService;
+import com.swiftwayz.product.service.VehicleService;
+import com.swiftwayz.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("api")
-public class VehicleController extends BaseController{
+public class VehicleController extends BaseController {
 
     @Autowired
     private VehicleService vehicleService;

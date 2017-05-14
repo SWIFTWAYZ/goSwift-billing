@@ -1,9 +1,10 @@
 package com.swiftwayz.web.rest;
 
-import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.ProductApplication;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
-import com.swiftwayz.service.vehicle.VehicleService;
+import com.swiftwayz.product.service.VehicleService;
+import com.swiftwayz.product.web.rest.VehicleController;
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * Created by sydney on 2017/04/16.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GoSwiftApplication.class)
+@SpringBootTest(classes = ProductApplication.class)
 @ActiveProfiles("dev")
 @Transactional
 public class VehicleControllerIntTest {

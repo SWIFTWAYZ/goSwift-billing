@@ -1,14 +1,13 @@
 package com.swiftwayz.web.rest;
 
-import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.ProductApplication;
 import com.swiftwayz.domain.vehicle.Product;
-import com.swiftwayz.service.product.ProductService;
-import static org.assertj.core.api.Assertions.*;
+import com.swiftwayz.product.service.ProductService;
+import com.swiftwayz.product.web.rest.ProductController;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import static org.mockito.Mockito.*;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -21,16 +20,19 @@ import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * Created by sydney on 2017/04/12.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GoSwiftApplication.class)
+@SpringBootTest(classes = ProductApplication.class)
 @ActiveProfiles("dev")
 @Transactional
 public class ProductControllerIntTest {

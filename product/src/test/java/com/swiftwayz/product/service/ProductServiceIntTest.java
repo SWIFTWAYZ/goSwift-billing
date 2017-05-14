@@ -1,10 +1,7 @@
-package com.swiftwayz.service.product;
+package com.swiftwayz.product.service;
 
-import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.ProductApplication;
 import com.swiftwayz.domain.vehicle.Product;
-
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,11 +10,13 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /**
  * Created by sydney on 2017/04/09.
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = GoSwiftApplication.class)
+@SpringBootTest(classes = ProductApplication.class)
 @ActiveProfiles("dev")
 @Transactional
 public class ProductServiceIntTest {

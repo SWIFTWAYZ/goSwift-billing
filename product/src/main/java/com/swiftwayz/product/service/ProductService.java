@@ -1,7 +1,7 @@
-package com.swiftwayz.service.product;
+package com.swiftwayz.product.service;
 
 import com.swiftwayz.domain.vehicle.Product;
-import com.swiftwayz.repository.ProductRepository;
+import com.swiftwayz.product.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

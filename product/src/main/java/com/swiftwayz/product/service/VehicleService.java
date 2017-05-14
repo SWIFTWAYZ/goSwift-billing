@@ -1,14 +1,11 @@
-package com.swiftwayz.service.vehicle;
+package com.swiftwayz.product.service;
 
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
-import com.swiftwayz.repository.ProductRepository;
-import com.swiftwayz.repository.VehicleRepository;
-import com.swiftwayz.service.product.ProductService;
+import com.swiftwayz.product.repository.VehicleRepository;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.util.Assert;
 
 import java.util.Optional;
 

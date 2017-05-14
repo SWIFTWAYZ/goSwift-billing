@@ -1,7 +1,8 @@
-package com.swiftwayz.web.rest;
+package com.swiftwayz.product.web.rest;
 
 import com.swiftwayz.domain.vehicle.Product;
-import com.swiftwayz.service.product.ProductService;
+import com.swiftwayz.product.service.ProductService;
+import com.swiftwayz.web.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

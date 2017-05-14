@@ -1,4 +1,4 @@
-package com.swiftwayz.repository;
+package com.swiftwayz.product.repository;
 
 import com.swiftwayz.domain.vehicle.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
