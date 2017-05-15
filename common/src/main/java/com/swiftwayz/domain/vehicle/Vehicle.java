@@ -51,6 +51,9 @@ public class Vehicle implements Serializable{
     @JoinColumn(name = "product_type_id")
     private Product product;
 
+    @Column(name = "type")
+    private String type;
+
     public Long getId() {
         return id;
     }
@@ -129,6 +132,14 @@ public class Vehicle implements Serializable{
 
     public void setDateApproved(Date dateApproved) {
         this.dateApproved = dateApproved;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Product getProduct() {

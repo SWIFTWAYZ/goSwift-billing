@@ -22,6 +22,8 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+
+        <!--VEHICLE-->
         <createTable tableName="vehicle">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -31,6 +33,7 @@
             <column name="vin_number" type="varchar(20)"/>
             <column name="make" type="varchar(20)"/>
             <column name="model" type="varchar(20)"/>
+            <column name="type" type="varchar(20)"/>
             <column name="color" type="varchar(20)"/>
             <column name="seat_capacity" type="int"/>
             <column name="clock_mileage" type="int"/>
@@ -91,7 +94,7 @@
                 <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>
             </column>
             <column name="vehicle_id" type="bigint">
-                <constraints  nullable="false" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
+                <constraints  nullable="true" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
             </column>
             <column name="license_number" type="varchar(50)">
                 <constraints nullable="false" />
