@@ -35,3 +35,7 @@ logging:
   level:
 #    org.hibernate.SQL: DEBUG
 #    org.hibernate.type: TRACE
+
+restserver:
+  port: 8080
+  host: localhost
