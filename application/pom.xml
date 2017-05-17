@@ -66,9 +66,21 @@
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
         </dependency>
+
+        <!--Swift dependencies-->
         <dependency>
             <groupId>com.swiftwayz</groupId>
             <artifactId>go.swift.common</artifactId>
+            <version>${go.swift.verion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.swiftwayz</groupId>
+            <artifactId>go.swift.billing</artifactId>
+            <version>${go.swift.verion}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.swiftwayz</groupId>
+            <artifactId>go.swift.product</artifactId>
             <version>${go.swift.verion}</version>
         </dependency>
         <dependency>
