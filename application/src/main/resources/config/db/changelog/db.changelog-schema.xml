@@ -7,6 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <changeSet id="create-tables" author="Sydney">
+        <!--PRODUCT Tables-->
         <createTable tableName="product">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -48,6 +49,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
+        <!--USER TABLES-->
         <createTable tableName="app_user">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -64,7 +66,7 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
-
+        <!--VEHICLE TABLES-->
         <createTable tableName="vehicle_owner">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -82,7 +84,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
-        <!--Driver-->
+        <!--DRIVER TABLES-->
         <createTable tableName="driver_detail">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -117,7 +119,8 @@
         </createTable>
 
 
-        <!--BILLING & ACCOUNT SCHEMA-->
+        <!--BILLING & ACCOUNT TABLES-->
+        <!--Account-->
         <createTable tableName="account">
             <column name="account_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -141,6 +144,37 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
+        <!--Banking transaction-->
+        <createTable tableName="banking_transaction">
+            <column name="transaction_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
 
+            <column name="transaction_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="initiator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_account_id" references="account(account_id)"/>
+            </column>
+            <column name="status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        
     </changeSet>
 </databaseChangeLog>
