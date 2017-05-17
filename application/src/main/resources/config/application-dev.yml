@@ -20,7 +20,7 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
 server:
-    contextPath: /
+    contextPath: /swift
     port: 8080
     session:
       timeout: 900
