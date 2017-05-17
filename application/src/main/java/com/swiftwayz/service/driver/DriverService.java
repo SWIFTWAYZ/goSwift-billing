@@ -6,6 +6,7 @@ import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.repository.DriverRepository;
 import com.swiftwayz.service.driver.adabt.DriverAdaptor;
+import com.swiftwayz.service.rest.VehicleRestService;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +23,16 @@ public class DriverService {
 
     @Autowired
     private DriverRepository driverRepository;
-//ToDO remove the dependency of vehicle
-//    @Autowired
-//    private VehicleService vehicleService;
+
+    @Autowired
+    private VehicleRestService vehicleService;
 
     public Driver addDriver(Driver driver) {
         DriverDetail driverDetail = DriverAdaptor.adapt(driver);
 
         Vehicle vehicle = driverDetail.getVehicle();
 
-        validateVehicle(vehicle);
+        vehicleService.addVehicle(vehicle);
 
         VehicleOwner vehicleOwner = driverDetail.getVehicleOwner();
         Validate.notNull(vehicleOwner, "Vehicle owner is required.");
@@ -54,7 +55,7 @@ public class DriverService {
         DriverDetail driverDetail = DriverAdaptor.adapt(driver);
 
         Vehicle vehicle = driverDetail.getVehicle();
-        validateVehicle(vehicle);
+//        validateVehicle(vehicle);
 
         VehicleOwner vehicleOwner = driverDetail.getVehicleOwner();
         Validate.notNull(vehicleOwner, "Vehicle owner is required.");
@@ -63,8 +64,4 @@ public class DriverService {
         return DriverAdaptor.adapt(saved);
     }
 
-    private void validateVehicle(Vehicle vehicle) {
-//        Validate.notNull(vehicle, "Vehicle is required.");
-//        vehicleService.validateProduct(vehicle);
-    }
 }
