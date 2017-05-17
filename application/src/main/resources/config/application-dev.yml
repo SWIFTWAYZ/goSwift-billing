@@ -20,7 +20,7 @@ spring:
             hibernate.cache.use_query_cache: false
             hibernate.generate_statistics: true
 server:
-    contextPath: /
+    contextPath: /swift
     port: 8080
     session:
       timeout: 900
@@ -33,5 +33,9 @@ liquibase:
 
 logging:
   level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type: TRACE
+#    org.hibernate.SQL: DEBUG
+#    org.hibernate.type: TRACE
+
+restserver:
+  port: 8080
+  host: localhost

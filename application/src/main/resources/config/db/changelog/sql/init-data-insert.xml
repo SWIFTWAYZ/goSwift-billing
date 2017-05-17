@@ -20,5 +20,11 @@
             VALUES(nextval('vehicle_id_seq'::regclass), 'DS12GP', 2017, '23424/23423/232', 'Toyota', 'Corolla', 'White', 3, 12000,
             (select id from public.product where code = 'goX'), now(), 'Sydney', now(), null, null);
         </sql>
+        <sql>
+            INSERT INTO public.app_user
+            (id, firstname, lastname, email, cell_number, status, id_number, created_by, created_date, modified_by, modified_date)
+            VALUES(nextval('app_user_id_seq'::regclass), 'TestUser', 'Test', 'test@goswfit.com','+270123456', 'Active',
+            1234567890123, 'Sydney', now(), null, null);
+        </sql>
     </changeSet>
 </databaseChangeLog>

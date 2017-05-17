@@ -2,10 +2,11 @@ package com.swiftwayz.service.driver;
 
 import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.user.DriverDetail;
-import com.swiftwayz.domain.user.User;
+import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.repository.DriverRepository;
 import com.swiftwayz.service.driver.adabt.DriverAdaptor;
+import com.swiftwayz.service.rest.VehicleRestService;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,16 +24,23 @@ public class DriverService {
     @Autowired
     private DriverRepository driverRepository;
 
-    public Driver addDriver(DriverDetail driverDetail) {
-        User user = driverDetail.getUser();
+    @Autowired
+    private VehicleRestService vehicleService;
+
+    public Driver addDriver(Driver driver) {
+        DriverDetail driverDetail = DriverAdaptor.adapt(driver);
+
         Vehicle vehicle = driverDetail.getVehicle();
-        Validate.notNull(user, "User is required.");
-        Validate.notNull(vehicle, "Vehicle is required.");
+
+        vehicleService.addVehicle(vehicle);
+
+        VehicleOwner vehicleOwner = driverDetail.getVehicleOwner();
+        Validate.notNull(vehicleOwner, "Vehicle owner is required.");
 
         DriverDetail saved = driverRepository.save(driverDetail);
-
         return DriverAdaptor.adapt(saved);
     }
+
 
     public Driver findByIdNumber(Long idNumber) {
         Optional<DriverDetail> driverD = driverRepository.findByIdNumber(idNumber);
@@ -41,4 +49,19 @@ public class DriverService {
 
         return DriverAdaptor.adapt(driverD.get());
     }
+
+    public Driver updateDriver(Driver driver){
+
+        DriverDetail driverDetail = DriverAdaptor.adapt(driver);
+
+        Vehicle vehicle = driverDetail.getVehicle();
+//        validateVehicle(vehicle);
+
+        VehicleOwner vehicleOwner = driverDetail.getVehicleOwner();
+        Validate.notNull(vehicleOwner, "Vehicle owner is required.");
+
+        DriverDetail saved = driverRepository.saveAndFlush(driverDetail);
+        return DriverAdaptor.adapt(saved);
+    }
+
 }

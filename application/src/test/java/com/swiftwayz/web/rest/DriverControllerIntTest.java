@@ -1,6 +1,7 @@
 package com.swiftwayz.web.rest;
 
 import com.swiftwayz.GoSwiftApplication;
+import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.user.DriverDetail;
 import com.swiftwayz.domain.user.User;
 import com.swiftwayz.domain.user.VehicleOwner;
@@ -8,13 +9,14 @@ import com.swiftwayz.domain.util.Status;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.driver.DriverService;
-import com.swiftwayz.service.product.ProductService;
+import com.swiftwayz.service.rest.VehicleRestService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -23,7 +25,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,8 +44,8 @@ public class DriverControllerIntTest {
     @Autowired
     private DriverService driverService;
 
-    @Mock
-    private ProductService productServiceMock;
+    @MockBean
+    private VehicleRestService vehicleRestService;
 
     private MockMvc restMvc;
 
@@ -59,51 +60,55 @@ public class DriverControllerIntTest {
     @Test
     public void should_add_driver() throws Exception {
 
+        Driver driver = createDriver();
+
         restMvc.perform(
                 post("/api/driver")
                         .contentType(TestUtil.APPLICATION_JSON_UTF8)
-                        .content(TestUtil.convertObjectToJsonBytes(getDriverDetails())))
+                        .content(TestUtil.convertObjectToJsonBytes(driver)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").isNotEmpty());
     }
 
-    private DriverDetail getDriverDetails() {
-        DriverDetail driver = new DriverDetail();
+    private Driver createDriver() {
+        Driver driver = createUser();
 
-        User user = createUser();
+        DriverDetail detail = getDriverDetails();
+        driver.setDriverDetail(detail);
 
-        driver.setUser(user);
-        driver.setCrimeCheck("Yes");
-        driver.setDateLicenseObtained(new Date());
-        driver.setLicenseNumber(123456L);
-        driver.setPermitNumber("120FJ5");
+        VehicleOwner owner = getVehicleOwner();
+        detail.setVehicleOwner(owner);
 
-        VehicleOwner owner = getVehicleOwner(user);
-        driver.setVehicleOwner(owner);
         Vehicle vehicle = getVehicle();
-        driver.setVehicle(vehicle);
+        detail.setVehicle(vehicle);
 
         return driver;
     }
 
-    private User createUser() {
-        User user = new User();
-        String firstName = "Sydney";
+    private DriverDetail getDriverDetails() {
+        DriverDetail detail = new DriverDetail();
+        detail.setCrimeCheck("Yes");
+        detail.setDateLicenseObtained(new Date());
+        detail.setLicenseNumber(123456L);
+        detail.setPermitNumber("120FJ5");
+        return detail;
+    }
 
-        user.setFirstName(firstName);
-        user.setLastName("Chauke");
-        user.setEmail("sm@gamil.com");
-        user.setIdNumber(1234567891234L);
-        user.setStatus(Status.ACTIVE.getName());
-        user.setCellNumber("+27721234567");
-        return user;
+    private Driver createUser() {
+        Driver driver = new Driver();
+        driver.setFirstName("Sydney");
+        driver.setLastName("Chauke");
+        driver.setEmail("sm@gamil.com");
+        driver.setIdNumber(1234567891234L);
+        driver.setStatus(Status.ACTIVE.getName());
+        driver.setCellNumber("+27721234567");
+        return driver;
     }
 
 
     private Vehicle getVehicle() {
         Vehicle vehicle = new Vehicle();
-
         vehicle.setMake("BMW");
         vehicle.setModel("330");
         vehicle.setColor("Black");
@@ -112,7 +117,6 @@ public class DriverControllerIntTest {
         vehicle.setSeatCapacity(4);
         vehicle.setVinNumber("VIN320884");
         vehicle.setProduct(getProduct());
-
         return vehicle;
     }
 
@@ -122,10 +126,16 @@ public class DriverControllerIntTest {
         return product;
     }
 
-    private VehicleOwner getVehicleOwner(User user) {
+    private VehicleOwner getVehicleOwner() {
         VehicleOwner owner = new VehicleOwner();
-        owner.setUser(user);
-        owner.setDriver('N');
+        owner.setUser(createOwner());
+        owner.setDriver('Y');
         return owner;
+    }
+
+    private User createOwner() {
+        User user = new User();
+        user.setIdNumber(1234567891234L);
+        return user;
     }
 }

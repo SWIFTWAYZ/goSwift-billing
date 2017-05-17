@@ -7,7 +7,7 @@
     <packaging>jar</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <name>Project Module - Billing</name>
-    <description>This is the main module of the project. It contains all business logic for billing.
+    <description>This is the main module of the project. It contains all business logic for Accounts and billing.
     </description>
 
     <parent>
@@ -23,10 +23,45 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.swiftwayz</groupId>
+            <artifactId>go.swift.common</artifactId>
+            <version>${go.swift.verion}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jadira.usertype</groupId>
+            <artifactId>usertype.extended</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <!--TEST DEPENDECIES-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>

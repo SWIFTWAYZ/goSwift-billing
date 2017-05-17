@@ -1,6 +1,9 @@
 package com.swiftwayz.domain.vehicle;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -8,7 +11,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "vehicle")
-public class Vehicle {
+public class Vehicle implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
@@ -44,9 +47,12 @@ public class Vehicle {
     @Column(name = "date_approved")
     private Date dateApproved;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "product_type_id")
     private Product product;
+
+    @Column(name = "type")
+    private String type;
 
     public Long getId() {
         return id;
@@ -126,6 +132,14 @@ public class Vehicle {
 
     public void setDateApproved(Date dateApproved) {
         this.dateApproved = dateApproved;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Product getProduct() {

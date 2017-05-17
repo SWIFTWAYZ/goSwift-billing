@@ -31,6 +31,7 @@ After cloning the repository switch to developmet branch and install all the dep
  * [Apache-maven-3.3.9](https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/)
  * [Postgresql](https://www.postgresql.org/download/) [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
  * [Dbeaver](http://dbeaver.jkiss.org/download/)
+ * [Lombok](https://plugins.jetbrains.com/plugin/6317-lombok-plugin)
 
 ### Database Config
 

@@ -22,6 +22,8 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+
+        <!--VEHICLE-->
         <createTable tableName="vehicle">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -31,6 +33,7 @@
             <column name="vin_number" type="varchar(20)"/>
             <column name="make" type="varchar(20)"/>
             <column name="model" type="varchar(20)"/>
+            <column name="type" type="varchar(20)"/>
             <column name="color" type="varchar(20)"/>
             <column name="seat_capacity" type="int"/>
             <column name="clock_mileage" type="int"/>
@@ -79,6 +82,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
+        <!--Driver-->
         <createTable tableName="driver_detail">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -90,7 +94,7 @@
                 <constraints  nullable="false" foreignKeyName="fk_owner_id" references="vehicle_owner(id)"/>
             </column>
             <column name="vehicle_id" type="bigint">
-                <constraints  nullable="false" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
+                <constraints  nullable="true" foreignKeyName="fk_vehicle_id" references="vehicle(id)"/>
             </column>
             <column name="license_number" type="varchar(50)">
                 <constraints nullable="false" />
@@ -111,5 +115,32 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+
+
+        <!--BILLING & ACCOUNT SCHEMA-->
+        <createTable tableName="account">
+            <column name="account_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="Name" type="VARCHAR(25)"/>
+            <column name="Type" type="VARCHAR(10)"/>
+            <column name="Description" type="VARCHAR(200)"/>
+            <column name="Status" type="VARCHAR(2)"/>
+            <column name="Balance" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="open_date" type="timestamp"/>
+            <column name="close_date" type="timestamp"/>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+
+
     </changeSet>
 </databaseChangeLog>
