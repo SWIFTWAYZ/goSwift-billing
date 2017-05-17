@@ -9,12 +9,14 @@ import com.swiftwayz.domain.util.Status;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.driver.DriverService;
+import com.swiftwayz.service.rest.VehicleRestService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
@@ -41,6 +43,9 @@ public class DriverControllerIntTest {
 
     @Autowired
     private DriverService driverService;
+
+    @MockBean
+    private VehicleRestService vehicleRestService;
 
     private MockMvc restMvc;
 

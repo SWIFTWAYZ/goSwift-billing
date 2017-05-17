@@ -8,12 +8,14 @@ import com.swiftwayz.domain.user.VehicleOwner;
 import com.swiftwayz.domain.util.Status;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
+import com.swiftwayz.service.rest.VehicleRestService;
 import org.apache.commons.lang3.SerializationUtils;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,6 +38,9 @@ public class DriverServiceIntTest {
     public static final String SYDNEY = "Sydney";
     @Autowired
     private DriverService driverService;
+
+    @MockBean
+    private VehicleRestService vehicleRestService;
 
     private Driver savedDriver;
 
