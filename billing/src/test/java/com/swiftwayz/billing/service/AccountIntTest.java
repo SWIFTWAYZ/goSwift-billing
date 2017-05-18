@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.cglib.core.internal.LoadingCache;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,24 @@ public class AccountIntTest {
 
     @Test
     public void should_add_account(){
+        Account account = createAccount();
+        Account saveAccount = accountService.addAccount(account);
+        Assertions.assertThat(saveAccount.getAccountId()).isNotZero();
+    }
 
+    @Test
+    public void should_throw_exception_when_adding_account_for_invalid_user(){
+        Account account = createAccount();
+        account.setUserId(500L);
+        try {
+            accountService.addAccount(account);
+            Assertions.fail("should throw user not found");
+        } catch (Exception e){
+            Assertions.assertThat(e).hasMessage("User (500) does not exist.");
+        }
+    }
+
+    private Account createAccount() {
         Account account = new Account();
 
         account.setBalance(BigDecimal.ZERO);
@@ -39,11 +57,7 @@ public class AccountIntTest {
         account.setOpenDate(new Date());
         account.setStatus(Status.ACTIVE);
         account.setUserId(Long.valueOf(1));
-
-        Account saveAccount = accountService.addAccount(account);
-
-        Assertions.assertThat(saveAccount.getAccountId()).isNotZero();
-
+        return account;
     }
 
 }

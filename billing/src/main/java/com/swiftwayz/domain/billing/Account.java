@@ -42,7 +42,7 @@ public class Account extends BaseEntity {
     @Column(name = "close_date")
     private Date closeDate;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     public Long getUserId() {
