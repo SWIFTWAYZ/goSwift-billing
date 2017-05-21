@@ -30,11 +30,15 @@ public class AccountService {
     }
 
     public BigDecimal debitAccount(BigDecimal amount, Long accountId){
-        Account account = accountRepository.findOne(accountId);
+        Account account = findAccount(accountId);
         BigDecimal balance = account.getBalance().add(amount);
         account.setBalance(balance);
         accountRepository.save(account);
         return balance;
+    }
+
+    public Account findAccount(Long accountId) {
+        return accountRepository.findOne(accountId);
     }
 
     private void validateUser(Account account) {
