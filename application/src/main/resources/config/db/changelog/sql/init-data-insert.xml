@@ -26,5 +26,10 @@
             VALUES(nextval('app_user_id_seq'::regclass), 'TestUser', 'Test', 'test@goswfit.com','+270123456', 'Active',
             1234567890123, 'Sydney', now(), null, null);
         </sql>
+        <sql>
+            INSERT INTO public.account
+            (account_id, "Name", "Type", "Description", "Status", "Balance", open_date, close_date, user_id, created_by, created_date, modified_by, modified_date)
+            VALUES(1002, 'Test Account', 'swiftAcc','Testing with this account', 'Active',  100, now(), null, 1, 'Sydney', now(), null, null);
+        </sql>
     </changeSet>
 </databaseChangeLog>
