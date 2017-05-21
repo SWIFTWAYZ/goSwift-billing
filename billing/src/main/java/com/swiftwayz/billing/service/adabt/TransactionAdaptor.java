@@ -8,18 +8,24 @@ import com.swiftwayz.domain.util.ModelMapper;
 /**
  * Created by sydney on 2017/05/21.
  */
-public class TransactionAdabter {
+public class TransactionAdaptor {
 
-    public static BankingTransaction adabt(BankingTx bankingTx){
+    public static BankingTransaction adapt(BankingTx bankingTx){
         org.modelmapper.ModelMapper mapper = ModelMapper.getMapper();
         return mapper.map(bankingTx, BankingTransaction.class);
     }
 
-    public static BankingTx adabt(BankingTransaction transaction){
-        org.modelmapper.ModelMapper mapper = ModelMapper.getMapper();
-        BankingTx bankingTx = mapper.map(transaction, BankingTx.class);
+
+    // TODO User modelMapper
+    public static BankingTx adapt(BankingTransaction transaction){
         Account account = transaction.getAccount();
+        BankingTx bankingTx = new BankingTx();
+        bankingTx.setTransactionId(transaction.getTransactionId());
         bankingTx.setAccountId(account.getAccountId());
+        bankingTx.setAmount(transaction.getAmount());
+        bankingTx.setDescription(transaction.getDescription());
+        bankingTx.setInitiator(transaction.getInitiator());
+
         return bankingTx;
     }
 }
