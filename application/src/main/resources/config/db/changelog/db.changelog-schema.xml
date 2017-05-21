@@ -125,11 +125,11 @@
             <column name="account_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="Name" type="VARCHAR(25)"/>
-            <column name="Type" type="VARCHAR(10)"/>
-            <column name="Description" type="VARCHAR(200)"/>
-            <column name="Status" type="VARCHAR(10)"/>
-            <column name="Balance" type="decimal(10,2)">
+            <column name="name" type="VARCHAR(25)"/>
+            <column name="type" type="VARCHAR(10)"/>
+            <column name="description" type="VARCHAR(200)"/>
+            <column name="status" type="VARCHAR(10)"/>
+            <column name="balance" type="decimal(10,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="open_date" type="timestamp"/>
