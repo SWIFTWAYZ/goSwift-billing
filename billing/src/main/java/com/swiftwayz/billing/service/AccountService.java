@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 /**
  * Created by sydney on 2017/05/07.
  */
@@ -25,6 +27,14 @@ public class AccountService {
     public Account addAccount(Account account){
         validateUser(account);
         return accountRepository.save(account);
+    }
+
+    public BigDecimal debitAccount(BigDecimal amount, Long accountId){
+        Account account = accountRepository.findOne(accountId);
+        BigDecimal balance = account.getBalance().add(amount);
+        account.setBalance(balance);
+        accountRepository.save(account);
+        return balance;
     }
 
     private void validateUser(Account account) {

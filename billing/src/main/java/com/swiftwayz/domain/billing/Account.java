@@ -78,7 +78,7 @@ public class Account extends BaseEntity {
     }
 
     public Status getStatus() {
-        return Status.valueOf(status);
+        return Status.getStatus(status);
     }
 
     public void setStatus(String status) {

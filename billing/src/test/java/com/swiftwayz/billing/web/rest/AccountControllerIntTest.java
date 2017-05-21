@@ -85,7 +85,7 @@ public class AccountControllerIntTest {
         account.setDescription("goSwift");
         account.setType("Swift");
         account.setOpenDate(new Date());
-        account.setStatus(Status.ACTIVE);
+        account.setStatus(Status.ACTIVE.getName());
         account.setUserId(Long.valueOf(1));
         return account;
     }

@@ -47,6 +47,12 @@ public class AccountIntTest {
         }
     }
 
+    @Test
+    public void should_debit_account_by_100_bucks(){
+        BigDecimal balance = accountService.debitAccount(BigDecimal.valueOf(100.59), 1002L);
+        Assertions.assertThat(balance).isEqualTo(BigDecimal.valueOf(200.59));
+    }
+
     private Account createAccount() {
         Account account = new Account();
 
@@ -55,7 +61,7 @@ public class AccountIntTest {
         account.setDescription("goSwift");
         account.setType("Swift");
         account.setOpenDate(new Date());
-        account.setStatus(Status.ACTIVE);
+        account.setStatus(Status.ACTIVE.getName());
         account.setUserId(Long.valueOf(1));
         return account;
     }

@@ -18,4 +18,15 @@ public enum Status {
     public String getName() {
         return name;
     }
+
+    public static Status getStatus(String value){
+
+        for (Status status: Status.values()) {
+            if(status.getName().equalsIgnoreCase(value)){
+                return status;
+            }
+        }
+
+        return Status.valueOf(value);
+    }
 }
