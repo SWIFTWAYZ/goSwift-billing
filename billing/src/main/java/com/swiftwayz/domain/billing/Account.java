@@ -31,7 +31,7 @@ public class Account extends BaseEntity {
     private String description;
 
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @Column(name = "Balance")
     private BigDecimal balance;
@@ -78,10 +78,10 @@ public class Account extends BaseEntity {
     }
 
     public Status getStatus() {
-        return status;
+        return Status.valueOf(status);
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
