@@ -4,6 +4,8 @@ import com.swiftwayz.domain.util.BaseEntity;
 import com.swiftwayz.domain.util.Status;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -22,7 +24,7 @@ public class BankingTransaction extends BaseEntity{
     private Long transactionId;
 
     @Column(name = "transaction_date")
-    private Date transactionDate;
+    private ZonedDateTime transactionDate;
 
     @Column(name = "type")
     private String type;
@@ -34,7 +36,7 @@ public class BankingTransaction extends BaseEntity{
     private String description;
 
     @Column(name = "amount")
-    private double amount;
+    private BigDecimal amount;
 
     @Column(name = "balance")
     private double balance;
@@ -54,11 +56,11 @@ public class BankingTransaction extends BaseEntity{
         this.transactionId = transactionId;
     }
 
-    public Date getTransactionDate() {
+    public ZonedDateTime getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(ZonedDateTime transactionDate) {
         this.transactionDate = transactionDate;
     }
 
@@ -86,11 +88,11 @@ public class BankingTransaction extends BaseEntity{
         this.description = description;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

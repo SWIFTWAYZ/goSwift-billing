@@ -3,12 +3,14 @@ package com.swiftwayz.billing.service;
 import com.swiftwayz.billing.repository.AccountRepository;
 import com.swiftwayz.billing.repository.AccountRepositoryImpl;
 import com.swiftwayz.domain.billing.Account;
+import com.swiftwayz.domain.billing.BankingTx;
 import org.apache.commons.lang3.BooleanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 
 /**
  * Created by sydney on 2017/05/07.
@@ -24,17 +26,47 @@ public class AccountService {
     @Autowired
     private AccountRepositoryImpl accountRepositoryImpl;
 
+    @Autowired
+    private BankingTxService bankingTxService;
+
     public Account addAccount(Account account){
         validateUser(account);
         return accountRepository.save(account);
     }
 
-    public BigDecimal debitAccount(BigDecimal amount, Long accountId){
-        Account account = findAccount(accountId);
-        BigDecimal balance = account.getBalance().add(amount);
-        account.setBalance(balance);
-        accountRepository.save(account);
-        return balance;
+    public BigDecimal debitAccount(BankingTx bankingTx){
+        try {
+            Long accountId = bankingTx.getAccountId();
+            Account account = findAccount(accountId);
+
+            BigDecimal amount = bankingTx.getAmount();
+            BigDecimal balance = account.getBalance().add(amount);
+            account.setBalance(balance);
+
+//        bankingTx.setInitiator();
+            bankingTx.setTransactionDate(ZonedDateTime.now());
+            bankingTx.setBalance(balance);
+            bankingTx.setType(BankingTx.DEPOSIT);
+            bankingTx.setDescription(BankingTx.DEPOSIT);
+
+            updateAccount(account);
+            bankingTx.setStatus(BankingTx.Status.SUCCESSFUL.name());
+            bankingTxService.addTransaction(bankingTx);
+            return balance;
+
+        } catch (Exception ex){
+            bankingTx.setStatus(BankingTx.Status.FAIL.name());
+            bankingTxService.addTransaction(bankingTx);
+            throw new RuntimeException(ex);
+        }
+    }
+
+    private void updateAccount(Account account) {
+        try {
+            accountRepository.save(account);
+        } catch (Exception ex){
+            throw new RuntimeException(ex);
+        }
     }
 
     public Account findAccount(Long accountId) {

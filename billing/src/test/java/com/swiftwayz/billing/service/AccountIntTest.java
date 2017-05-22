@@ -2,13 +2,13 @@ package com.swiftwayz.billing.service;
 
 import com.swiftwayz.BillingApplication;
 import com.swiftwayz.domain.billing.Account;
+import com.swiftwayz.domain.billing.BankingTx;
 import com.swiftwayz.domain.util.Status;
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.cglib.core.internal.LoadingCache;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +32,7 @@ public class AccountIntTest {
     public void should_add_account(){
         Account account = createAccount();
         Account saveAccount = accountService.addAccount(account);
-        Assertions.assertThat(saveAccount.getAccountId()).isNotZero();
+        assertThat(saveAccount.getAccountId()).isNotZero();
     }
 
     @Test
@@ -41,16 +41,24 @@ public class AccountIntTest {
         account.setUserId(500L);
         try {
             accountService.addAccount(account);
-            Assertions.fail("should throw user not found");
+            fail("should throw user not found");
         } catch (Exception e){
-            Assertions.assertThat(e).hasMessage("User (500) does not exist.");
+            assertThat(e).hasMessage("User (500) does not exist.");
         }
     }
 
     @Test
     public void should_debit_account_by_100_bucks(){
-        BigDecimal balance = accountService.debitAccount(BigDecimal.valueOf(100.59), 1002L);
-        Assertions.assertThat(balance).isEqualTo(BigDecimal.valueOf(200.59));
+        BankingTx bankingTx = new BankingTx();
+        bankingTx.setAccountId(1002L);
+        bankingTx.setAmount(BigDecimal.valueOf(100.59));
+        BigDecimal balance = accountService.debitAccount(bankingTx);
+
+        BigDecimal accountBalance = BigDecimal.valueOf(200.59);
+        assertThat(balance).isEqualTo(accountBalance);
+
+        assertThat(bankingTx.getStatus()).isEqualTo(BankingTx.Status.SUCCESSFUL.name());
+        assertThat(bankingTx.getBalance()).isEqualTo(accountBalance);
     }
 
     private Account createAccount() {
