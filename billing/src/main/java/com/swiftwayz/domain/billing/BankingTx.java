@@ -1,9 +1,8 @@
 package com.swiftwayz.domain.billing;
 
-import com.swiftwayz.domain.util.Status;
-
-import javax.persistence.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.ZonedDateTime;
 import java.util.Date;
 
 /**
@@ -13,11 +12,17 @@ public class BankingTx implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
+    public static String DEPOSIT = "Deposit";
+
+    public static String WITHDRAWAL = "Withdrawal";
+
+    public enum Status {SUCCESSFUL, FAIL};
+
     private Long transactionId;
 
     private Long accountId;
 
-    private Date transactionDate;
+    private ZonedDateTime transactionDate;
 
     private String type;
 
@@ -25,9 +30,9 @@ public class BankingTx implements Serializable{
 
     private String description;
 
-    private double amount;
+    private BigDecimal amount;
 
-    private double balance;
+    private BigDecimal balance;
 
     private String status;
 
@@ -47,11 +52,11 @@ public class BankingTx implements Serializable{
         this.accountId = accountId;
     }
 
-    public Date getTransactionDate() {
+    public ZonedDateTime getTransactionDate() {
         return transactionDate;
     }
 
-    public void setTransactionDate(Date transactionDate) {
+    public void setTransactionDate(ZonedDateTime transactionDate) {
         this.transactionDate = transactionDate;
     }
 
@@ -79,19 +84,19 @@ public class BankingTx implements Serializable{
         this.description = description;
     }
 
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 
-    public double getBalance() {
+    public BigDecimal getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(BigDecimal balance) {
         this.balance = balance;
     }
 

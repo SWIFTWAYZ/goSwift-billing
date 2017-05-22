@@ -12,6 +12,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 /**
  * Created by sydney on 2017/05/21.
  */
@@ -29,7 +31,7 @@ public class BankingTxServiceIntTest {
         BankingTx transaction = new BankingTx();
         transaction.setAccountId(1002L);
         transaction.setDescription("Debit");
-        transaction.setAmount(50);
+        transaction.setAmount(BigDecimal.valueOf(50));
         transaction.setInitiator("Sydney");
 
         BankingTx bankingTx = bankingTxService.addTransaction(transaction);
