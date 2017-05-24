@@ -36,6 +36,13 @@ public class AccountIntTest {
     }
 
     @Test
+    public void should_get_account(){
+        Account account = accountService.findAccount(1002L);
+        assertThat(account.getAccountId()).isNotZero();
+        assertThat(account.getTransactions()).isNotNull();
+    }
+
+    @Test
     public void should_throw_exception_when_adding_account_for_invalid_user(){
         Account account = createAccount();
         account.setUserId(500L);

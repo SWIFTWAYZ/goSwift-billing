@@ -70,7 +70,9 @@ public class AccountService {
     }
 
     public Account findAccount(Long accountId) {
-        return accountRepository.findOne(accountId);
+        Account account = accountRepository.findOne(accountId);
+        account.getTransactions().iterator();
+        return account;
     }
 
     private void validateUser(Account account) {
