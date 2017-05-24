@@ -112,8 +112,8 @@ public class BankingTransaction extends BaseEntity{
         this.account = account;
     }
 
-    public Status getStatus() {
-        return Status.getStatus(status);
+    public String getStatus() {
+        return status;
     }
 
     public void setStatus(String status) {

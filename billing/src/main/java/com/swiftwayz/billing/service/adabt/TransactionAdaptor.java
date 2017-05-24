@@ -4,6 +4,7 @@ import com.swiftwayz.domain.billing.Account;
 import com.swiftwayz.domain.billing.BankingTransaction;
 import com.swiftwayz.domain.billing.BankingTx;
 import com.swiftwayz.domain.util.ModelMapper;
+import org.modelmapper.convention.MatchingStrategies;
 
 /**
  * Created by sydney on 2017/05/21.
@@ -15,17 +16,12 @@ public class TransactionAdaptor {
         return mapper.map(bankingTx, BankingTransaction.class);
     }
 
-
-    // TODO User modelMapper
     public static BankingTx adapt(BankingTransaction transaction){
+        org.modelmapper.ModelMapper mapper = ModelMapper.getMapper();
+        mapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        BankingTx bankingTx = mapper.map(transaction, BankingTx.class);
         Account account = transaction.getAccount();
-        BankingTx bankingTx = new BankingTx();
-        bankingTx.setTransactionId(transaction.getTransactionId());
         bankingTx.setAccountId(account.getAccountId());
-        bankingTx.setAmount(transaction.getAmount());
-        bankingTx.setDescription(transaction.getDescription());
-        bankingTx.setInitiator(transaction.getInitiator());
-
         return bankingTx;
     }
 }
