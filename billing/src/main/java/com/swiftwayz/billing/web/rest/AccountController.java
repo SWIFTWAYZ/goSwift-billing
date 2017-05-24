@@ -28,11 +28,21 @@ public class AccountController extends BaseController{
         }
     }
 
-    @PostMapping("/deposit")
-    public ResponseEntity<?> deposit(@RequestBody BankingTx bankingTx){
+    @PostMapping("/debit")
+    public ResponseEntity<?> debitAccount(@RequestBody BankingTx bankingTx){
         try{
             accountService.debitAccount(bankingTx);
             return httpOk();
+        } catch (Exception ex){
+            return httpBadRequest(ex);
+        }
+    }
+
+    @GetMapping("/account/{accountId}")
+    public ResponseEntity<?> getAccount(@PathVariable Long accountId){
+        try{
+            Account account = accountService.findAccount(accountId);
+            return httpOk(account);
         } catch (Exception ex){
             return httpBadRequest(ex);
         }

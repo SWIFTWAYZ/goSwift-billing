@@ -11,11 +11,13 @@ import org.junit.runner.RunWith;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.springframework.test.web.servlet.MvcResult;
@@ -75,6 +77,22 @@ public class AccountControllerIntTest {
 
         String content = mvcResult.getResponse().getContentAsString();
         Assertions.assertThat(content).contains("User (-1) does not exist.");
+    }
+
+    @Test
+    public void should_find_account() throws Exception {
+
+        restMvc.perform(
+                get("/billing/account/1002")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.accountId").value(1002));
+    }
+
+    @Test
+    public void should_debit_account_with_100(){
+
+
     }
 
     private Account createAccount() {
