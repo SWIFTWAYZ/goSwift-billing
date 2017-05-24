@@ -46,7 +46,7 @@ public class Account extends BaseEntity {
     @Column(name = "user_id", nullable = false)
     private Long userId;
 
-    @OneToMany(mappedBy = "transactionId")
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
     private Set<BankingTransaction> transactions;
 
     public Long getUserId() {
