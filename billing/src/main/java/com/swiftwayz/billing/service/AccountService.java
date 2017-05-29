@@ -46,8 +46,36 @@ public class AccountService {
 //        bankingTx.setInitiator();
             bankingTx.setTransactionDate(ZonedDateTime.now());
             bankingTx.setBalance(balance);
-            bankingTx.setType(BankingTx.DEPOSIT);
-            bankingTx.setDescription(BankingTx.DEPOSIT);
+            bankingTx.setType(BankingTx.DEBIT);
+            bankingTx.setDescription(BankingTx.DEBIT);
+
+            updateAccount(account);
+            bankingTx.setStatus(BankingTx.Status.SUCCESSFUL.name());
+            bankingTxService.addTransaction(bankingTx);
+            return balance;
+
+        } catch (Exception ex){
+            bankingTx.setStatus(BankingTx.Status.FAIL.name());
+            bankingTxService.addTransaction(bankingTx);
+            throw new RuntimeException(ex);
+        }
+    }
+
+
+    public BigDecimal creditAccount(BankingTx bankingTx){
+        try {
+            Long accountId = bankingTx.getAccountId();
+            Account account = findAccount(accountId);
+
+            BigDecimal amount = bankingTx.getAmount();
+            BigDecimal balance = account.getBalance().subtract(amount);
+            account.setBalance(balance);
+
+//        bankingTx.setInitiator();
+            bankingTx.setTransactionDate(ZonedDateTime.now());
+            bankingTx.setBalance(balance);
+            bankingTx.setType(BankingTx.CREDIT);
+            bankingTx.setDescription(BankingTx.CREDIT);
 
             updateAccount(account);
             bankingTx.setStatus(BankingTx.Status.SUCCESSFUL.name());

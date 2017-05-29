@@ -68,6 +68,20 @@ public class AccountIntTest {
         assertThat(bankingTx.getBalance()).isEqualTo(accountBalance);
     }
 
+    @Test
+    public void should_credit_account_by_50_bucks(){
+        BankingTx bankingTx = new BankingTx();
+        bankingTx.setAccountId(1002L);
+        bankingTx.setAmount(BigDecimal.valueOf(50.01));
+        BigDecimal balance = accountService.creditAccount(bankingTx);
+
+        BigDecimal accountBalance = BigDecimal.valueOf(49.99);
+        assertThat(balance).isEqualTo(accountBalance);
+
+        assertThat(bankingTx.getStatus()).isEqualTo(BankingTx.Status.SUCCESSFUL.name());
+        assertThat(bankingTx.getBalance()).isEqualTo(accountBalance);
+    }
+
     private Account createAccount() {
         Account account = new Account();
 

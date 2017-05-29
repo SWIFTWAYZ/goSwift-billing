@@ -12,9 +12,11 @@ public class BankingTx implements Serializable{
 
     private static final long serialVersionUID = 1L;
 
-    public static String DEPOSIT = "Deposit";
+    public static String DEBIT = "Debit";
 
-    public static String WITHDRAWAL = "Withdrawal";
+    public static String CREDIT = "Credit";
+
+    public static String TRANSFER = "Transfer";
 
     public enum Status {SUCCESSFUL, FAIL};
 
