@@ -180,6 +180,51 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+        <!--TRIP-->
+        <createTable tableName="trip">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trip_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="km" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination_lat" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination_long" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination" type="varchar(300)">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure_long" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure_lat" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure" type="varchar(300)">
+                <constraints  nullable="false" />
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        <!--BILL TABLE-->
         <createTable tableName="bill">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -206,7 +251,7 @@
                 <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
             </column>
             <column name="trip_id" type="bigint">
-                <!--<constraints  nullable="false" foreignKeyName="fk_trip_id" references="trip(id)"/>-->
+                <constraints  nullable="false" foreignKeyName="fk_trip_id" references="trip(id)"/>
             </column>
             <column name="driver_id" type="bigint">
                 <constraints  nullable="false" foreignKeyName="fk_driver_id" references="driver_detail(id)"/>
