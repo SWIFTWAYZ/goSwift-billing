@@ -180,6 +180,46 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+        <createTable tableName="bill">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="base_fare" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="normal_fare" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtotal" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="send_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <!--<constraints  nullable="false" foreignKeyName="fk_trip_id" references="trip(id)"/>-->
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_driver_id" references="driver_detail(id)"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
         
     </changeSet>
 </databaseChangeLog>
