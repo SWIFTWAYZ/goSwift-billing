@@ -33,11 +33,7 @@ public class VehicleService {
 
     public void validateProduct(Vehicle vehicle) {
         Product product = vehicle.getProduct();
-        Validate.notNull(product, "Product is required.");
-        String productCode = product.getCode();
-        Product existingProduct = productService.findByCode(productCode).orElse(null);
-
-        Validate.notNull(existingProduct, String.format("Product {%s} not found.", productCode));
+        Product existingProduct = productService.getProduct(product);
         vehicle.setProduct(existingProduct);
     }
 
