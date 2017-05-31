@@ -21,7 +21,7 @@ public class ProductRestService {
     private RESTServer restServer;
 
     public Product getProduct(Product product){
-        String url = String.format(URL,  restEnv.getHost(), restEnv.getPort(),PRODUCT);
-        return restServer.post(url, Product.class, product);
+        String url = String.format(URL,  restEnv.getHost(), restEnv.getPort());
+        return restServer.get(url, Product.class, product);
     }
 }
