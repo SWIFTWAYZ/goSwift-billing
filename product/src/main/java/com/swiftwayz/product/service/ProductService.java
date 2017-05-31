@@ -23,8 +23,14 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Optional<Product> findByCode(String code) {
+    private Optional<Product> findByCode(String code) {
         return productRepository.findOneByCode(code);
+    }
+
+    public Product getProduct(String code){
+        Product product = new Product();
+        product.setCode(code);
+        return getProduct(product);
     }
 
     public Product getProduct(Product product){

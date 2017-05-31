@@ -26,11 +26,13 @@ public class ProductController extends BaseController {
      * @return the ResponseEntity with status 200 (OK) and with body the product, or with status 404 (Not Found)
      */
     @GetMapping("/product/{code}")
-    public ResponseEntity<Product> getProduct(@PathVariable String code){
-
-        return productService.findByCode(code)
-                .map(product -> new ResponseEntity<>(product,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getProduct(@PathVariable String code){
+        try{
+            Product product = productService.getProduct(code);
+            return httpOk(product);
+        }catch (Exception ex){
+            return httpBadRequest(ex);
+        }
     }
 
     @PostMapping(value = "/product",
