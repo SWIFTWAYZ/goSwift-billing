@@ -39,8 +39,7 @@ public class Bill extends BaseEntity{
     @Column(name = "send_date")
     private ZonedDateTime sendDate;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -51,8 +50,7 @@ public class Bill extends BaseEntity{
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "driver_id")
+    @Column(name = "driver_id", nullable = false)
     private Long driverId;
 
     public Long getId() {
