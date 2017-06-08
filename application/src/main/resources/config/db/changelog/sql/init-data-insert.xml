@@ -31,5 +31,16 @@
             (account_id, "name", "type", "description", "status", "balance", open_date, close_date, user_id, created_by, created_date, modified_by, modified_date)
             VALUES(1002, 'Test Account', 'swiftAcc','Testing with this account', 'Active',  100, now(), null, 1, 'Sydney', now(), null, null);
         </sql>
+        <sql>
+            INSERT INTO public.vehicle_owner
+            (id, user_id, is_driver, created_by, created_date, modified_by, modified_date)
+            VALUES(nextval('vehicle_owner_id_seq'::regclass), 1, 'Y', 'Sydney', now(), null, null);
+        </sql>
+        <sql>
+            INSERT INTO public.driver_detail
+            (id, user_id, vehicle_owner_id, vehicle_id, license_number, license_date_obtained, public_permit_number, crime_check_status, comments, created_by, created_date, modified_by, modified_date)
+            VALUES(nextval('driver_detail_id_seq'::regclass), 1, 10, 1, '123456', to_date('1963-09-01', 'YYYY-MM-DD'),
+            '2468', 'Y', '', 'Sydney', now(), null, null);
+        </sql>
     </changeSet>
 </databaseChangeLog>
