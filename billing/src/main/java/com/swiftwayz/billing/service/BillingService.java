@@ -1,8 +1,10 @@
 package com.swiftwayz.billing.service;
 
 import com.swiftwayz.billing.repository.BillRepository;
+import com.swiftwayz.billing.service.reset.ProductRestService;
 import com.swiftwayz.domain.billing.Bill;
 import com.swiftwayz.domain.billing.Trip;
+import com.swiftwayz.domain.vehicle.Product;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -18,6 +20,9 @@ public class BillingService {
     @Autowired
     private BillRepository billRepository;
 
+    @Autowired
+    private ProductRestService productRestService;
+
     public Bill createBill(Bill bill){
 
         // Trip
@@ -25,7 +30,7 @@ public class BillingService {
         Validate.notNull(trip, "Trip data cannot is required.");
 
         validateDriver(bill.getDriverId());
-        validateProduct(bill);
+        populateProduct(bill);
 
         validateUser(bill.getUserId());
         //Get base fare
@@ -56,8 +61,9 @@ public class BillingService {
         Validate.notNull(userId,"User Id is required.");
     }
 
-    private void validateProduct(Bill bill) {
-
+    private void populateProduct(Bill bill) {
+        Product product = productRestService.getProduct(bill.getProduct());
+        bill.setProduct(product);
     }
 
     private void validateDriver(Long driverId) {

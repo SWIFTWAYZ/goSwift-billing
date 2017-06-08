@@ -1,6 +1,7 @@
 package com.swiftwayz.billing.service;
 
 import com.swiftwayz.BillingApplication;
+import com.swiftwayz.billing.service.reset.ProductRestService;
 import com.swiftwayz.domain.billing.Bill;
 import static org.assertj.core.api.Assertions.*;
 
@@ -9,6 +10,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,22 +27,33 @@ public class BillingServiceIntTest {
     @Autowired
     private BillingService billingService;
 
+    @MockBean
+    private ProductRestService productRestService;
+
     @Test
     public void should_create_a_bill(){
-
-        Bill bill = new Bill();
-        bill.setUserId(1L);
-
-        Trip trip = new Trip();
-        trip.setKm(6.9);
-        bill.setTrip(trip);
-
-        bill.setDriverId(1L);
+        Bill bill = createBill();
 
         billingService.createBill(bill);
 
         assertThat(bill.getId()).isNotZero();
-        assertThat(trip.getId()).isNotZero();
+        assertThat(bill.getTrip().getId()).isNotZero();
+    }
 
+    private Bill createBill() {
+        Bill bill = new Bill();
+        bill.setUserId(1L);
+        bill.setDriverId(1L);
+
+        Trip trip = createTrip();
+        bill.setTrip(trip);
+
+        return bill;
+    }
+
+    private Trip createTrip() {
+        Trip trip = new Trip();
+        trip.setKm(6.9);
+        return trip;
     }
 }
