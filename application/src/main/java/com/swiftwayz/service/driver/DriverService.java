@@ -43,14 +43,13 @@ public class DriverService {
 
     public Driver findOne(Long id){
         DriverDetail driverDetail = driverRepository.findOne(id);
+        Validate.notNull(driverDetail, "Driver "+ id + " not found");
         return DriverAdaptor.adapt(driverDetail);
     }
 
     public Driver findByIdNumber(Long idNumber) {
         Optional<DriverDetail> driverD = driverRepository.findByIdNumber(idNumber);
-        DriverDetail driverDetail = driverD.get();
-        Validate.notNull(driverDetail, "Driver not found.");
-
+        Validate.isTrue(driverD.isPresent(),  "Driver "+ idNumber +" not found.");
         return DriverAdaptor.adapt(driverD.get());
     }
 
