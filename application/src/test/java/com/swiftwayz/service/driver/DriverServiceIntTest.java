@@ -10,7 +10,6 @@ import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.service.rest.VehicleRestService;
 import org.apache.commons.lang3.SerializationUtils;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,8 +43,10 @@ public class DriverServiceIntTest {
 
     private Driver savedDriver;
 
+
     @Test
     public void should_add_driver(){
+
         Driver driver = createDriver();
 
         DriverDetail driverDetail = getDriverDetail();
@@ -75,16 +76,26 @@ public class DriverServiceIntTest {
 
     }
 
+
     @Test
-    @Ignore
-    public void should_get_driver_by_idNumber(){
+    public void should_get_driver_by_driverId() {
 
-        should_add_driver();
-
-        Driver driver =  driverService.findByIdNumber(ID_NUMBER);
+        long id = 1L;
+        Driver driver = driverService.findOne(id);
 
         assertThat(driver).isNotNull();
-        assertThat(driver.getIdNumber()).isEqualTo(ID_NUMBER);
+        assertThat(driver.getFirstName()).isEqualTo("TestUser");
+
+    }
+
+    @Test
+    public void should_get_driver_by_idNumber(){
+
+        long idNumber = 1234567890123L;
+        Driver driver =  driverService.findByIdNumber(idNumber);
+
+        assertThat(driver).isNotNull();
+        assertThat(driver.getIdNumber()).isEqualTo(idNumber);
         assertThat(driver.getDriverDetail()).isNotNull();
         Vehicle vehicle = driver.getDriverDetail().getVehicle();
         assertThat(vehicle).isNotNull();
@@ -95,9 +106,11 @@ public class DriverServiceIntTest {
     }
 
     @Test
-    @Ignore
     public void should_update_driver(){
-        should_add_driver();
+
+        long id = 1L;
+        Driver savedDriver = driverService.findOne(id);
+
         String oldFirstName = savedDriver.getFirstName();
         Driver driver = SerializationUtils.clone( savedDriver);
 

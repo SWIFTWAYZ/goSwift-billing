@@ -17,11 +17,13 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -50,7 +52,7 @@ public class DriverControllerIntTest {
     private MockMvc restMvc;
 
     @Before
-    public void setup(){
+    public void setup() {
         DriverController controller = new DriverController();
         ReflectionTestUtils.setField(controller, "driverService", driverService);
 
@@ -69,6 +71,26 @@ public class DriverControllerIntTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("id").isNotEmpty());
+    }
+
+    @Test
+    public void should_get_driver_by_id() throws Exception {
+
+        restMvc.perform(get("/api/driver/1")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName").value("TestUser"))
+                .andExpect(jsonPath("$.lastName").value("Test"));
+    }
+
+    @Test
+    public void should_get_driver_by_idNumber() throws Exception {
+
+        restMvc.perform(get("/api/driver?idNumber=1234567890123")
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.firstName").value("TestUser"))
+                .andExpect(jsonPath("$.lastName").value("Test"));
     }
 
     private Driver createDriver() {
