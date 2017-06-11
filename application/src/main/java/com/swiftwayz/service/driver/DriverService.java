@@ -41,6 +41,10 @@ public class DriverService {
         return DriverAdaptor.adapt(saved);
     }
 
+    public Driver findOne(Long id){
+        DriverDetail driverDetail = driverRepository.findOne(id);
+        return DriverAdaptor.adapt(driverDetail);
+    }
 
     public Driver findByIdNumber(Long idNumber) {
         Optional<DriverDetail> driverD = driverRepository.findByIdNumber(idNumber);
