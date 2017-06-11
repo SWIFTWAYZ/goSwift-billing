@@ -1,9 +1,11 @@
 package com.swiftwayz.billing.service;
 
 import com.swiftwayz.billing.repository.BillRepository;
+import com.swiftwayz.billing.service.reset.DriverRestService;
 import com.swiftwayz.billing.service.reset.ProductRestService;
 import com.swiftwayz.domain.billing.Bill;
 import com.swiftwayz.domain.billing.Trip;
+import com.swiftwayz.domain.user.Driver;
 import com.swiftwayz.domain.vehicle.Product;
 import org.apache.commons.lang3.Validate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class BillingService {
 
     @Autowired
     private ProductRestService productRestService;
+
+    @Autowired
+    private DriverRestService driverRestService;
 
     public Bill createBill(Bill bill){
 
@@ -68,5 +73,6 @@ public class BillingService {
 
     private void validateDriver(Long driverId) {
         Validate.notNull(driverId, "Driver is required.");
+        driverRestService.getDriver(driverId);
     }
 }

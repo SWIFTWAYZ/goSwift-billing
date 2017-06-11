@@ -13,16 +13,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class DriverRestService {
 
-    public static final String URL = "http://%s:%s/swift/api/driver";
-    public static final String PRODUCT = "PRODUCT";
+    public static final String URL = "http://%s:%s/swift/api/driver/{id}";
     @Autowired
     private RESTEnv restEnv;
 
     @Autowired
     private RESTServer restServer;
 
-    public Driver getDriver(Driver driver){
-        String url = String.format(URL,  restEnv.getHost(), restEnv.getPort());
-        return restServer.get(url, Driver.class, driver);
+    public Driver getDriver(Long driverId){
+        String url = String.format(URL,  restEnv.getHost(), restEnv.getPort(), driverId);
+        return restServer.get(url, Driver.class, driverId);
     }
 }
