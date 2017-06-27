@@ -20,6 +20,12 @@ public class Trip extends BaseEntity {
     private Long id;
 
     @Column(name = "trip_time")
+    private ZonedDateTime tripSatrtTine;
+
+    @Column(name = "trip_time")
+    private ZonedDateTime tripSatrtEnd;
+
+    @Column(name = "trip_time")
     private ZonedDateTime tripTime;
 
     @Column(name = "driver_time")
