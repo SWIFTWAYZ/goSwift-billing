@@ -1,6 +1,7 @@
 package com.swiftwayz.billing.service;
 
 import com.swiftwayz.BillingApplication;
+import com.swiftwayz.billing.service.reset.DriverRestService;
 import com.swiftwayz.billing.service.reset.ProductRestService;
 import com.swiftwayz.domain.billing.Bill;
 import static org.assertj.core.api.Assertions.*;
@@ -29,6 +30,9 @@ public class BillingServiceIntTest {
 
     @MockBean
     private ProductRestService productRestService;
+
+    @MockBean
+    private DriverRestService driverRestService;
 
     @Test
     public void should_create_a_bill(){
