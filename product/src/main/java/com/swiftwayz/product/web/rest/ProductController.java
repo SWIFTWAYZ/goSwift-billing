@@ -35,11 +35,14 @@ public class ProductController extends BaseController {
         }
     }
 
-    @PostMapping(value = "/product",
-            produces = MediaType.TEXT_PLAIN_VALUE)
+    @PostMapping(value = "/product")
     public ResponseEntity<?> addProduct(@RequestBody Product product) {
-        productService.add(product);
-        return httpOk(product);
+        try {
+            productService.add(product);
+            return httpOk(product);
+        }catch (Exception ex){
+            return httpInternalError(ex);
+        }
     }
 
     @DeleteMapping(value = "/product")
