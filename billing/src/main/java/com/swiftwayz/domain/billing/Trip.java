@@ -19,11 +19,11 @@ public class Trip extends BaseEntity {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "trip_time")
-    private ZonedDateTime tripSatrtTine;
+    @Column(name = "start_time")
+    private ZonedDateTime tripStartTime;
 
-    @Column(name = "trip_time")
-    private ZonedDateTime tripSatrtEnd;
+    @Column(name = "end_time")
+    private ZonedDateTime tripEndTime;
 
     @Column(name = "trip_time")
     private ZonedDateTime tripTime;
@@ -141,5 +141,21 @@ public class Trip extends BaseEntity {
 
     public void setDeparture(Double departure) {
         this.departure = departure;
+    }
+
+    public ZonedDateTime getTripStartTime() {
+        return tripStartTime;
+    }
+
+    public void setTripStartTime(ZonedDateTime tripStartTime) {
+        this.tripStartTime = tripStartTime;
+    }
+
+    public ZonedDateTime getTripEndTime() {
+        return tripEndTime;
+    }
+
+    public void setTripEndTime(ZonedDateTime tripEndTime) {
+        this.tripEndTime = tripEndTime;
     }
 }
