@@ -31,6 +31,11 @@ public abstract  class BaseController {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    protected ResponseEntity<String> httpInternalError(Exception exception) {
+        LOG.error("Internal Error", exception);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     protected ResponseEntity<?> httpOk(Object object) {
         return new ResponseEntity<>(object, HttpStatus.OK);
     }

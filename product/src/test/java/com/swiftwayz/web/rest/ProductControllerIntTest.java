@@ -56,8 +56,8 @@ public class ProductControllerIntTest {
         ProductController productControllerMock = new ProductController();
         ReflectionTestUtils.setField(productControllerMock, "productService", productServiceMock);
 
-        restMvc = MockMvcBuilders.standaloneSetup(productController).setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
-        restMvcMock = MockMvcBuilders.standaloneSetup(productControllerMock).setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
+        restMvc = MockMvcBuilders.standaloneSetup(productController).build();//setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
+        restMvcMock = MockMvcBuilders.standaloneSetup(productControllerMock).build();//.setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
 
     }
 
