@@ -37,4 +37,24 @@ public class DriverController extends BaseController {
             return httpBadRequest(ex);
         }
     }
+
+    @GetMapping("/driver/{id}")
+    public ResponseEntity<?> getDriverById(@PathVariable long id){
+        try{
+            Driver driver = driverService.findOne(id);
+            return httpOk(driver);
+        } catch (Exception ex){
+            return httpBadRequest(ex);
+        }
+    }
+
+    @GetMapping("/driver")
+    public ResponseEntity<?> getDriverByIdNumber(@RequestParam("idNumber") long idNumber){
+        try{
+            Driver driver = driverService.findByIdNumber(idNumber);
+            return httpOk(driver);
+        } catch (Exception ex){
+            return httpBadRequest(ex);
+        }
+    }
 }

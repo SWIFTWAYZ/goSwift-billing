@@ -2,7 +2,7 @@ package com.swiftwayz.service.rest;
 
 import com.swiftwayz.domain.vehicle.Vehicle;
 import com.swiftwayz.web.RESTServer;
-import com.swiftwayz.web.util.RESTEnv;
+import com.swiftwayz.web.RESTEnv;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

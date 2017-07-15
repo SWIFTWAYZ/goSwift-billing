@@ -4,13 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 /**
+ * Base of all controllers
  * Created by sydney on 2017/04/16.
  */
 public abstract  class BaseController {
 
-    private static final Logger LOG = LoggerFactory.getLogger(BaseController.class);
+    private final Logger LOG = LoggerFactory.getLogger(this.getClass());
 
     protected ResponseEntity<Object> httpOk() {
         return new ResponseEntity<>(HttpStatus.OK);
@@ -26,9 +31,12 @@ public abstract  class BaseController {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    protected ResponseEntity<String> httpInternalError(Exception exception) {
+        LOG.error("Internal Error", exception);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
     protected ResponseEntity<?> httpOk(Object object) {
         return new ResponseEntity<>(object, HttpStatus.OK);
     }
-
 }

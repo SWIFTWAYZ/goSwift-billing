@@ -26,43 +26,43 @@ public class ProductController extends BaseController {
      * @return the ResponseEntity with status 200 (OK) and with body the product, or with status 404 (Not Found)
      */
     @GetMapping("/product/{code}")
-    public ResponseEntity<Product> getProduct(@PathVariable String code){
-
-        return productService.findByCode(code)
-                .map(product -> new ResponseEntity<>(product,HttpStatus.OK))
-                .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    public ResponseEntity<?> getProduct(@PathVariable String code) {
+        try {
+            Product product = productService.getProduct(code);
+            return httpOk(product);
+        } catch (Exception ex) {
+            return httpBadRequest(ex);
+        }
     }
 
-    @PostMapping(value = "/product",
-        produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<?> addProduct(@RequestBody Product product){
+    @PostMapping(value = "/product")
+    public ResponseEntity<?> addProduct(@RequestBody Product product) {
         try {
             productService.add(product);
-            return httpOk();
+            return httpOk(product);
         }catch (Exception ex){
-            String message = "Error adding Product code {"  + product.getCode() + "} " + ex.getMessage();
-            return httpBadRequest(message);
+            return httpInternalError(ex);
         }
     }
 
     @DeleteMapping(value = "/product")
-    public ResponseEntity<?> deleteProduct(@RequestBody Product product){
+    public ResponseEntity<?> deleteProduct(@RequestBody Product product) {
         try {
             productService.delete(product);
             return httpOk();
-        }catch (Exception ex){
-            String message = "Error deleting Product code {"  + product.getCode() + "} " + ex.getMessage();
+        } catch (Exception ex) {
+            String message = "Error deleting Product code {" + product.getCode() + "} " + ex.getMessage();
             return httpBadRequest(message);
         }
     }
 
-    @PutMapping (value = "/product")
-    public ResponseEntity<?> updateProduct(@RequestBody Product product){
+    @PutMapping(value = "/product")
+    public ResponseEntity<?> updateProduct(@RequestBody Product product) {
         try {
             productService.update(product);
             return httpOk();
-        }catch (Exception ex){
-            String message = "Error Updating Product code {"  + product.getCode() + "} " + ex.getMessage();
+        } catch (Exception ex) {
+            String message = "Error Updating Product code {" + product.getCode() + "} " + ex.getMessage();
             return httpBadRequest(message);
         }
     }

@@ -1,4 +1,4 @@
-package com.swiftwayz.web.util;
+package com.swiftwayz.web;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

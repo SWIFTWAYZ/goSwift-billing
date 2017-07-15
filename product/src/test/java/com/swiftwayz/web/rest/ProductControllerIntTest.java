@@ -4,6 +4,7 @@ import com.swiftwayz.ProductApplication;
 import com.swiftwayz.domain.vehicle.Product;
 import com.swiftwayz.product.service.ProductService;
 import com.swiftwayz.product.web.rest.ProductController;
+import com.swiftwayz.web.RestResponseEntityExceptionHandler;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -55,8 +56,8 @@ public class ProductControllerIntTest {
         ProductController productControllerMock = new ProductController();
         ReflectionTestUtils.setField(productControllerMock, "productService", productServiceMock);
 
-        restMvc = MockMvcBuilders.standaloneSetup(productController).build();
-        restMvcMock = MockMvcBuilders.standaloneSetup(productControllerMock).build();
+        restMvc = MockMvcBuilders.standaloneSetup(productController).build();//setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
+        restMvcMock = MockMvcBuilders.standaloneSetup(productControllerMock).build();//.setControllerAdvice(new RestResponseEntityExceptionHandler()).build();
 
     }
 
@@ -74,17 +75,18 @@ public class ProductControllerIntTest {
     @Test
     public void should_throw_exception_when_add_test_product() throws Exception {
         Product product = getProduct();
+        String message = "Error adding Product code";
 
-        when(productServiceMock.add(any(Product.class))).thenThrow(new RuntimeException());
+        when(productServiceMock.add(any(Product.class))).thenThrow(new RuntimeException(message));
         MvcResult mvcResult = restMvcMock.perform(
                 post("/api/product")
                         .contentType(TestUtil.APPLICATION_JSON_UTF8)
                         .content(TestUtil.convertObjectToJsonBytes(product)))
-                .andExpect(status().isBadRequest())
+                .andExpect(status().isInternalServerError())
                 .andReturn();
 
         String content = mvcResult.getResponse().getContentAsString();
-        assertThat(content).contains("Error adding Product code");
+        assertThat(content).contains(message);
     }
 
     @Test

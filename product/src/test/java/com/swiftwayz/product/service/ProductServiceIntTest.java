@@ -68,15 +68,16 @@ public class ProductServiceIntTest {
         Product product = retrieveGoxProduct();
 
         productService.delete(product);
-
-        Product product1 = retrieveGoxProduct();
-
-        assertThat(product1).isNull();
+        try {
+            retrieveGoxProduct();
+        } catch (Exception ex){
+            assertThat(ex).hasMessage("Product {goX-test} not found.");
+        }
     }
 
     private Product retrieveGoxProduct() {
         String goX = "goX-test";
-        return productService.findByCode(goX).orElse(null);
+        return productService.getProduct(goX);
     }
 
 }

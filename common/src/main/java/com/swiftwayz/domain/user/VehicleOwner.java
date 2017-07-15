@@ -1,7 +1,6 @@
 package com.swiftwayz.domain.user;
 
 import com.swiftwayz.domain.util.BaseEntity;
-import com.swiftwayz.domain.vehicle.Vehicle;
 
 import javax.persistence.*;
 import java.util.Set;

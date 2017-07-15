@@ -6,6 +6,7 @@ import com.swiftwayz.domain.util.Status;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * Created by sydney on 2017/05/07.
@@ -31,7 +32,7 @@ public class Account extends BaseEntity {
     private String description;
 
     @Column(name = "status")
-    private Status status;
+    private String status;
 
     @Column(name = "Balance")
     private BigDecimal balance;
@@ -42,8 +43,11 @@ public class Account extends BaseEntity {
     @Column(name = "close_date")
     private Date closeDate;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private Long userId;
+
+    @OneToMany(mappedBy = "account", fetch = FetchType.LAZY)
+    private Set<BankingTransaction> transactions;
 
     public Long getUserId() {
         return userId;
@@ -77,11 +81,11 @@ public class Account extends BaseEntity {
         this.balance = balance;
     }
 
-    public Status getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
@@ -115,5 +119,13 @@ public class Account extends BaseEntity {
 
     public void setAccountId(Long accountId) {
         this.accountId = accountId;
+    }
+
+    public Set<BankingTransaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(Set<BankingTransaction> transactions) {
+        this.transactions = transactions;
     }
 }

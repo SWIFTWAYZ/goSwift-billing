@@ -7,6 +7,7 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-1.9.xsd">
 
     <changeSet id="create-tables" author="Sydney">
+        <!--PRODUCT Tables-->
         <createTable tableName="product">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -48,6 +49,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
+        <!--USER TABLES-->
         <createTable tableName="app_user">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -64,7 +66,7 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
-
+        <!--VEHICLE TABLES-->
         <createTable tableName="vehicle_owner">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -82,7 +84,7 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
-        <!--Driver-->
+        <!--DRIVER TABLES-->
         <createTable tableName="driver_detail">
             <column name="id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
@@ -117,16 +119,17 @@
         </createTable>
 
 
-        <!--BILLING & ACCOUNT SCHEMA-->
+        <!--BILLING & ACCOUNT TABLES-->
+        <!--Account-->
         <createTable tableName="account">
             <column name="account_id" type="bigint" autoIncrement="true">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
-            <column name="Name" type="VARCHAR(25)"/>
-            <column name="Type" type="VARCHAR(10)"/>
-            <column name="Description" type="VARCHAR(200)"/>
-            <column name="Status" type="VARCHAR(2)"/>
-            <column name="Balance" type="decimal(10,2)">
+            <column name="name" type="VARCHAR(25)"/>
+            <column name="type" type="VARCHAR(10)"/>
+            <column name="description" type="VARCHAR(200)"/>
+            <column name="status" type="VARCHAR(10)"/>
+            <column name="balance" type="decimal(10,2)">
                 <constraints nullable="false"/>
             </column>
             <column name="open_date" type="timestamp"/>
@@ -141,6 +144,127 @@
             <column name="modified_date" type="timestamp"/>
         </createTable>
 
+        <!--Banking transaction-->
+        <createTable tableName="banking_transaction">
+            <column name="transaction_id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
 
+            <column name="transaction_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="initiator" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="balance" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_account_id" references="account(account_id)"/>
+            </column>
+            <column name="status" type="varchar(10)">
+                <constraints nullable="false"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        <!--TRIP-->
+        <createTable tableName="trip">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="trip_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="driver_time" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="distance" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="km" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination_lat" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination_long" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="destination" type="varchar(300)">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure_long" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure_lat" type="bigint">
+                <constraints  nullable="false" />
+            </column>
+            <column name="departure" type="varchar(300)">
+                <constraints  nullable="false" />
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        <!--BILL TABLE-->
+        <createTable tableName="bill">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="description" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="base_fare" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="normal_fare" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="subtotal" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="total" type="decimal(10,2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="send_date" type="timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_user_id" references="app_user(id)"/>
+            </column>
+            <column name="trip_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_trip_id" references="trip(id)"/>
+            </column>
+            <column name="driver_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_driver_id" references="driver_detail(id)"/>
+            </column>
+            <column name="product_id" type="bigint">
+                <constraints  nullable="false" foreignKeyName="fk_product_id" references="product(id)"/>
+            </column>
+            <!-- Audit fields-->
+            <column name="created_by" type="varchar(50)"/>
+            <column name="created_date" type="timestamp"/>
+            <column name="modified_by" type="varchar(50)"/>
+            <column name="modified_date" type="timestamp"/>
+        </createTable>
+        
     </changeSet>
 </databaseChangeLog>
