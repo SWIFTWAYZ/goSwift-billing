@@ -36,6 +36,7 @@ After cloning the repository switch to developmet branch and install all the dep
 ### Database Config
 
  * Follow this link to setup postgress [setup](http://stackoverflow.com/questions/1471571/how-to-configure-postgresql-for-the-first-time)
+ * create [dbuser](https://www.cyberciti.biz/faq/howto-add-postgresql-user-account/)
  * dbname = swiftwayz
  * dbuser = swiftwayz
  
