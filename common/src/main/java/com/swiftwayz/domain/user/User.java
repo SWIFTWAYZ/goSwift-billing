@@ -1,8 +1,11 @@
 package com.swiftwayz.domain.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.swiftwayz.domain.util.BaseEntity;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by sydney on 2017/04/16.
@@ -35,6 +38,13 @@ public class User extends BaseEntity{
 
     @Column(name = "status")
     private String status;
+
+    @ManyToMany
+    @JoinTable(
+            name = "user_authority",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "authority_code", referencedColumnName = "code")})
+    private Set<Authority> authorities = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -92,4 +102,7 @@ public class User extends BaseEntity{
         this.status = status;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
 }

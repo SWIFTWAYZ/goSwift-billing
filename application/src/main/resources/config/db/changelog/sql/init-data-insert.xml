@@ -27,6 +27,21 @@
             1234567890123, 'Sydney', now(), null, null);
         </sql>
         <sql>
+            INSERT
+            INTO "authority"(code,name)
+            VALUES ('ADMIN', 'Admin Role');
+        </sql>
+        <sql>
+            INSERT
+            INTO "authority"(code,name)
+            VALUES ('USER', 'User Role');
+        </sql>
+        <sql>
+            INSERT
+            INTO user_authority(user_id, authority_code)
+            VALUES (1, 'ADMIN');
+        </sql>
+        <sql>
             INSERT INTO public.account
             (account_id, "name", "type", "description", "status", "balance", open_date, close_date, user_id, created_by, created_date, modified_by, modified_date)
             VALUES(1002, 'Test Account', 'swiftAcc','Testing with this account', 'Active',  100, now(), null, 1, 'Sydney', now(), null, null);

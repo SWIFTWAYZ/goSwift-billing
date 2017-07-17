@@ -66,6 +66,35 @@
             <column name="modified_by" type="varchar(50)"/>
             <column name="modified_date" type="timestamp"/>
         </createTable>
+
+        <!--AUTHORITY TABLES-->
+        <createTable tableName="authority">
+            <column name="code" type="varchar(10) NOT NULL">
+                <constraints  primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(50) NOT NULL"/>
+        </createTable>
+        <!--USER AUTHORITY TABLES-->
+        <createTable tableName="user_authority">
+            <column name="user_id" type="bigint"/>
+            <column name="authority_code" type="varchar(10)"/>
+        </createTable>
+        <addPrimaryKey tableName="user_authority"
+                       columnNames="user_id, authority_code"
+                       constraintName="user_authority_pkey"/>
+        <addForeignKeyConstraint
+                baseTableName="user_authority"
+                baseColumnNames="authority_code"
+                constraintName="fk_authority_code"
+                referencedTableName="authority"
+                referencedColumnNames="code" />
+        <addForeignKeyConstraint
+                baseTableName="user_authority"
+                baseColumnNames="user_id"
+                constraintName="fk_user_id"
+                referencedTableName="app_user"
+                referencedColumnNames="id" />
+
         <!--VEHICLE TABLES-->
         <createTable tableName="vehicle_owner">
             <column name="id" type="bigint" autoIncrement="true">
