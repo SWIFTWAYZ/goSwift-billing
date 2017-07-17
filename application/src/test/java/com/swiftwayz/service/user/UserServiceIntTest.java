@@ -40,6 +40,10 @@ public class UserServiceIntTest {
         User newUser = userService.saveUser(user);
 
         assertThat(newUser.getId()).isNotZero();
+        assertThat(newUser.getAuthorities()).hasSize(1);
+        assertThat(newUser.getAuthorities())
+                .extracting(Authority::getCode)
+                .contains("USER");
     }
 
     @Test
